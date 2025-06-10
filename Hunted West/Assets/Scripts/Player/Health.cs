@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
         HealthSlider.value = health;
     }
 
-    void ClampHealth(float health)
+    public void ClampHealth(float health)
     {
         if (health <= 0)
         {
@@ -30,7 +30,7 @@ public class Health : MonoBehaviour
 
         if (health > MaxHealth)
         {
-                health = MaxHealth;
+            health = MaxHealth;
         }
     }
  

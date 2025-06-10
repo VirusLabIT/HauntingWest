@@ -1,16 +1,31 @@
+using System.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    Animator controller;
+
+    private void Start()
     {
-        
+        controller = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.gameObject.GetComponent<CoinManager>() != null && collision.CompareTag("Player"))
+        {
+            CoinManager coinManager = collision.gameObject.GetComponent<CoinManager>();
+
+            coinManager.AddCoins(1);
+
+            controller.SetTrigger("PickedUp");
+
+            print(gameObject.name);
+
+            Destroy(gameObject, 0.35f);
+            
+        }
     }
+
 }

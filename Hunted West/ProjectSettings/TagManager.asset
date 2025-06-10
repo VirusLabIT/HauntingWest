@@ -8,6 +8,7 @@ TagManager:
   - EBullet
   - Enemy
   - Coin
+  - Wall
   layers:
   - Default
   - TransparentFX

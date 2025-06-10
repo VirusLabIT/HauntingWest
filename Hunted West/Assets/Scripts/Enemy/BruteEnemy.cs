@@ -3,26 +3,29 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class BruteEnemy : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] int Life = 3;
-    [SerializeField] float speed;
+    public int Damage;
 
-    [Header("Bullet Stats")]
-    [SerializeField] float BulletSpeed;
-    [SerializeField] float MinTimeSpawn;
-    [SerializeField] float MaxTimeSpawn;
+    [Header("Puch Stats")]
+    [SerializeField] float PuchLifeTime;
+    [SerializeField] float MinTimePunch;
+    [SerializeField] float MaxTimePunch;
 
     [Header("Serializetion")]
     [SerializeField] GameObject Player;
-    [SerializeField] bool IsShooting = true;
-    [SerializeField] GameObject EnemyBullet;
+    [SerializeField] bool IsPuching = true;
+    [SerializeField] GameObject PunchBox;
+    [SerializeField] GameObject Coin;
+    [SerializeField] SpriteRenderer IndicatorSprite;
 
     [Header("RandomStats")]
     [SerializeField] float PosRanRadios = 2.0f;
     [SerializeField] LayerMask playerLayer;
-
+    [SerializeField] int MinCoinsToSpawn = 0;
+    [SerializeField] int MaxCoinsToSpawn = 3;
 
     bool isPlayerDirect;
     bool isSpawning = false;
@@ -45,11 +48,11 @@ public class Enemy : MonoBehaviour
 
         isPlayerDirect = IsAnyThingBetweenPlayer(Player.transform.position);
 
-        if (IsPlayerDetected && isPlayerDirect || IsBulletDetected)
+        if ((IsPlayerDetected && isPlayerDirect) || IsBulletDetected)
         {
             SetTarget(Player.transform.position);
             LookAt(Player.transform.position);
-            if (IsShooting) { Spawn(); }
+            if (IsPuching && Vector3.Distance(transform.position, Player.transform.position) < 4) { Spawn(); }
 
             if (!IsPlayerDetected)
             {
@@ -90,13 +93,29 @@ public class Enemy : MonoBehaviour
             }
 
             Debug.Log("Destination reached");
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(.3f);
         }
 
         isGoingToRanPos = false;
     }
 
 
+    void SpawnCoins()
+    {
+        int coinstospawn = Random.Range(MinCoinsToSpawn--, MaxCoinsToSpawn);
+
+        print("Coins Spawned: " + coinstospawn);
+
+        for (int i = 0; i != coinstospawn; ++i)
+        {
+
+            Vector3 Ofsset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+
+            Vector3 pos = gameObject.transform.position + Ofsset;
+
+            Instantiate(Coin, pos, Quaternion.Euler(0, 0, 0));
+        }
+    }
 
 
     bool IsAnyThingBetweenPlayer(Vector3 target)
@@ -118,14 +137,14 @@ public class Enemy : MonoBehaviour
             }
         }
 
-            return false;
+        return false;
 
-    } 
+    }
 
     Vector3 PickRanDestenation(Transform position)
     {
 
-        for (int i = 0; i < 10 ; i++)
+        for (int i = 0; i < 10; i++)
         {
             float randomModX = Random.Range(-PosRanRadios, PosRanRadios);
             float randomModY = Random.Range(-PosRanRadios, PosRanRadios);
@@ -148,32 +167,37 @@ public class Enemy : MonoBehaviour
 
     void LookAt(Vector3 target)
     {
-        Vector3 lool = transform.InverseTransformPoint(target);
+        Vector2 dir = (target - transform.position).normalized;
 
-        float angle = Mathf.Atan2(lool.y, lool.x) * Mathf.Rad2Deg - 90;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-        transform.Rotate(0, 0, angle);
+        transform.rotation = Quaternion.Euler(0, 0, angle - 90);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Bullet") && !collision.GetComponent<Bullet>().hitDetection && !collision.GetComponent<Bullet>().bulletDetection)
         {
-            Life--;
+
+            int damage = collision.GetComponent<Bullet>().Damage;
+
+            Life -= damage;
             print(Life);
 
             if (Life <= 0)
             {
+                SpawnCoins();
                 Destroy(gameObject);
             }
 
             IsBulletDetected = false;
-        }else if (collision.GetComponent<Bullet>() != null && collision.GetComponent<Bullet>().bulletDetection)
+        }
+        else if (collision.GetComponent<Bullet>() != null && collision.GetComponent<Bullet>().bulletDetection)
         {
             IsBulletDetected = true;
         }
 
-        
+
     }
 
 
@@ -196,21 +220,23 @@ public class Enemy : MonoBehaviour
 
     IEnumerator ISpawn()
     {
+        Color orgColor = IndicatorSprite.color;
+
+        IndicatorSprite.color = Color.red;
+
         isSpawning = true;
 
-        print("Shoot");
-        Vector3 Dir = (Player.transform.position - transform.position).normalized;
+        print("Punch");
 
+        PunchBox.SetActive(true);
 
-        GameObject EBullet = Instantiate(EnemyBullet, transform.position, Quaternion.identity);
-        EBullet.GetComponent<EBullet>().ESetup(Dir, BulletSpeed);
+        yield return new WaitForSecondsRealtime(PuchLifeTime);
 
+        PunchBox.SetActive(false);
 
-        float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
-        EBullet.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
+        IndicatorSprite.color = orgColor;
 
-        float time = Random.Range(MinTimeSpawn, MaxTimeSpawn);
-
+        float time = Random.Range(MinTimePunch, MaxTimePunch);
 
         yield return new WaitForSecondsRealtime(time);
 

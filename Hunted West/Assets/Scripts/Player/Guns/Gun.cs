@@ -5,6 +5,7 @@ public class Gun : MonoBehaviour
 {
     [SerializeField] GameObject BulletPre;
     [SerializeField] float BulletSpeed = 1.0f;
+    [SerializeField] int Damage = 1;
     void Update()
     {
         Shoot();
@@ -24,7 +25,7 @@ public class Gun : MonoBehaviour
 
 
             GameObject Bullet = Instantiate(BulletPre, transform.position, Quaternion.identity);
-            Bullet.GetComponent<Bullet>().Setup(Dir, BulletSpeed);
+            Bullet.GetComponent<Bullet>().Setup(Dir, BulletSpeed, Damage);
 
 
             float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;

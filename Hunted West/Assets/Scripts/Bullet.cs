@@ -8,12 +8,14 @@ public class Bullet : MonoBehaviour
     public bool bulletDetection;
     Vector3 Dir;
     float Speed;
+    public int Damage;
 
 
-    public void Setup(Vector3 dir, float speed)
+    public void Setup(Vector3 dir, float speed, int damage)
     {
         Dir = dir;
         Speed = speed;
+        Damage = damage;
     }
 
 
@@ -42,6 +44,12 @@ public class Bullet : MonoBehaviour
             {
                 bulletDetection = true;
                 hitDetection = false;
+            }else if (collision.CompareTag("Wall"))
+            {
+                print(collision.name);
+                hitDetection = false;
+                bulletDetection = false;
+                Destroy(gameObject);
             }
             else
             {
@@ -49,6 +57,9 @@ public class Bullet : MonoBehaviour
                 bulletDetection = false;
                 Destroy(gameObject);
             }
+        }else
+        {
+            print(collision.name);
         }
     }
 
