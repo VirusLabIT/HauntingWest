@@ -10,10 +10,9 @@ public class Movement : MonoBehaviour
     [Header("Dash")]
     [SerializeField] float DashSpeed = 5f;
     [SerializeField] float DashTime = 0.1f;
-    [SerializeField] int StaminaCost = 10;
 
     Rigidbody2D rb2d;
-    bool isDashing = false;
+    public bool isDashing = false;
     Stamina stamina;
 
     private void Start()
@@ -30,7 +29,7 @@ public class Movement : MonoBehaviour
 
     void Dash()
     {
-        if (!isDashing && Input.GetKeyDown(KeyCode.Space) && stamina.CurrentStamina > StaminaCost && !stamina.isRegenarating)
+        if (!isDashing && Input.GetKeyDown(KeyCode.Space) && !stamina.isregen)
         {
             StartCoroutine(IDash());
         }
@@ -46,7 +45,8 @@ public class Movement : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(DashTime);
 
-        stamina.DealStamina(StaminaCost);
+        stamina.currentmana = 0;
+        stamina.UpdateSlider();
 
         Speed = speed;
 

@@ -1,103 +1,51 @@
 using System.Collections;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Stamina : MonoBehaviour
 {
     [Header("Stats")]
-    public int MaxStamina = 100;
-    public int CurrentStamina = 0;
-    public bool isRegenarating = false;
-    [SerializeField] int MinStaminaToRegenarate = 20;
+    [SerializeField] Slider ManaSlider;
+    public float currentmana = 1f;
+    public bool isregen = false;
 
-    [Header("GUI")]
-    [SerializeField] TextMeshProUGUI StaminaTXT;
-    [SerializeField] Slider StaminaSlider;
     private void Start()
     {
-        CurrentStamina = MaxStamina;
+        ManaSlider.value = currentmana;
     }
 
     private void Update()
     {
-        ClampStamina();
-        RegenerateStamina();
-
-        StaminaTXT.text = CurrentStamina.ToString();
-        StaminaSlider.value = CurrentStamina;
-    }
-
-    void RegenerateStamina()
-    { 
-
-        if (CurrentStamina <= MinStaminaToRegenarate && !isRegenarating)
+        if (!GetComponent<Movement>().isDashing && !isregen && currentmana < 1f)
         {
-            isRegenarating = true;
-
-            int staminaToAdd = 100 - CurrentStamina;
-
-            AddStamina(staminaToAdd, .1f);
-
-            ClampStamina();
-
-        }
-        if (CurrentStamina == 100)
-        {
-            isRegenarating = false;
+            Regen();
         }
     }
 
-    void ClampStamina()
+    public void UpdateSlider()
     {
-        if (CurrentStamina > MaxStamina)
-        {
-            CurrentStamina = MaxStamina;
-        }
-
-        if (CurrentStamina <= 0)
-        {
-            CurrentStamina = 0;
-        }
+        ManaSlider.value = currentmana;
     }
 
-    public void DealStamina(int StaminaToDeal)
+    public void Regen()
     {
-        StartCoroutine(IDealStamina(StaminaToDeal));
-        ClampStamina();
+        StartCoroutine(IRegen());
     }
 
-    IEnumerator IDealStamina(int staminatodeal)
+    IEnumerator IRegen()
     {
-        int TargerStamina = CurrentStamina - staminatodeal;
+        isregen = true;
 
+        yield return new WaitForSecondsRealtime(.5f);
 
-        while (CurrentStamina > TargerStamina)
+        while (currentmana < 1f)
         {
-            CurrentStamina--;
-
-            yield return new WaitForSecondsRealtime(0.02f);
+            currentmana += 0.3f * Time.deltaTime; // Slower, framerate-independent
+            currentmana = Mathf.Clamp01(currentmana); // Ensure it doesn't go over 1
+            ManaSlider.value = currentmana;
+            yield return null;
         }
-    } 
 
-    public void AddStamina(int StaminaToAdd, float Delay)
-    {
-        StartCoroutine(IAddStamina(StaminaToAdd, Delay));
-        ClampStamina();
+        isregen = false;
     }
-
-    IEnumerator IAddStamina(int staminatoadd, float delay)
-    {
-        int TargerStamina = CurrentStamina + staminatoadd;
-
-
-        while (CurrentStamina < TargerStamina)
-        {
-            CurrentStamina++;
-
-            yield return new WaitForSecondsRealtime(delay);
-        }
-    }
-
 }
