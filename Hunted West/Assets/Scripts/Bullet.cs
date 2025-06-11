@@ -11,11 +11,12 @@ public class Bullet : MonoBehaviour
     public int Damage;
 
 
-    public void Setup(Vector3 dir, float speed, int damage)
+    public void Setup(Vector3 dir, float speed, int damage, float lifetime)
     {
         Dir = dir;
         Speed = speed;
         Damage = damage;
+        TimeToLast = lifetime;
     }
 
 

@@ -10,6 +10,7 @@ public class Rifle : MonoBehaviour
     [SerializeField] float BulletSpeed;
     [SerializeField] float Delay;
     [SerializeField] int Damage;
+    [SerializeField] float LifeTime;
 
     [Header("Ammo")]
     [SerializeField] int MaxAmmo;
@@ -19,8 +20,8 @@ public class Rifle : MonoBehaviour
     [SerializeField] TextMeshProUGUI AmmoText;
     [SerializeField] string AmmoDevider = "/";
 
-    bool isShooting;
-    bool isReloading;
+    public bool isShootingRifle;
+    public bool isReloadingRifle;
 
 
 
@@ -33,7 +34,7 @@ public class Rifle : MonoBehaviour
 
     void Reload()
     {
-        if ((Input.GetKeyDown(KeyCode.R) && !isReloading && CurrentAmmo != MaxAmmo) || (CurrentAmmo <= 0 && !isReloading))
+        if ((Input.GetKeyDown(KeyCode.R) && !isReloadingRifle && CurrentAmmo != MaxAmmo && Input.mouseScrollDelta.y == 0) || (CurrentAmmo <= 0 && !isReloadingRifle && Input.mouseScrollDelta.y == 0))
         {
             StartCoroutine(IReload());
         }
@@ -44,13 +45,13 @@ public class Rifle : MonoBehaviour
 
     IEnumerator IReload()
     {
-        isReloading = true;
+        isReloadingRifle = true;
 
         yield return new WaitForSeconds(ReloadTime);
 
         CurrentAmmo = MaxAmmo;
 
-        isReloading = false;
+        isReloadingRifle = false;
     }
 
     private void Update()
@@ -70,7 +71,7 @@ public class Rifle : MonoBehaviour
 
     void Shoot()
     {
-        if (Input.GetMouseButton(0) && !isShooting && !isReloading)
+        if (Input.GetMouseButton(0) && !isShootingRifle && !isReloadingRifle && Input.mouseScrollDelta.y == 0)
         {
             StartCoroutine(IShoot());
         }
@@ -79,9 +80,21 @@ public class Rifle : MonoBehaviour
 
     IEnumerator IShoot()
     {
-        isShooting = true;
+        isShootingRifle = true;
+
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            isShootingRifle = false;
+            yield break;
+        }
 
         Vector3 MouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            isShootingRifle = false;
+            yield break;
+        }
 
         MouseWorldPos.z = 0;
 
@@ -89,16 +102,46 @@ public class Rifle : MonoBehaviour
 
         CurrentAmmo--;
 
-        GameObject Bullet = Instantiate(BulletPre, transform.position, Quaternion.identity);
-        Bullet.GetComponent<Bullet>().Setup(Dir, BulletSpeed, Damage);
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            isShootingRifle = false;
+            yield break;
+        }
 
+        GameObject Bullet = Instantiate(BulletPre, transform.position, Quaternion.identity);
+        Bullet.GetComponent<Bullet>().Setup(Dir, BulletSpeed, Damage, LifeTime);
+
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            isShootingRifle = false;
+            yield break;
+        }
 
         float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
         Bullet.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
 
-        yield return new WaitForSecondsRealtime(Delay);
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            isShootingRifle = false;
+            yield break;
+        }
 
-        isShooting = false;
+        float elapsedTime = 0;
+
+        while (elapsedTime < Delay)
+        {
+            elapsedTime += Time.deltaTime;
+
+            if (Input.mouseScrollDelta.y != 0)
+            {
+                isShootingRifle = false;
+                yield break;
+            }
+
+            yield return null;
+        }
+
+        isShootingRifle = false;
     }
 
 }

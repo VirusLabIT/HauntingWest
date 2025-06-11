@@ -1,35 +1,115 @@
 using NUnit.Framework.Constraints;
+using TMPro;
+using UnityEditor.TextCore.Text;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] GameObject BulletPre;
-    [SerializeField] float BulletSpeed = 1.0f;
-    [SerializeField] int Damage = 1;
-    void Update()
+    [SerializeField] TextMeshProUGUI GunText;
+    [SerializeField] GameObject[] Guns;
+    public GameObject CurrentGun;
+    public int CurrentGunIndex;
+    public string GunType;
+    private void Update()
     {
-        Shoot();
+        ScrollManager();
     }
 
-
-    void Shoot()
+    private void Start()
     {
-        if (Input.GetMouseButtonDown(0))
+        UpdateGun();
+    }
+
+    void ScrollManager()
+    {
+        
+
+
+        if (Input.mouseScrollDelta.y > 0)
         {
-            Vector3 MouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            MouseWorldPos.z = 0;
-
-            Vector3 Dir = (MouseWorldPos - transform.position).normalized;
-
-
-
-            GameObject Bullet = Instantiate(BulletPre, transform.position, Quaternion.identity);
-            Bullet.GetComponent<Bullet>().Setup(Dir, BulletSpeed, Damage);
-
-
-            float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
-            Bullet.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
+            ScrollUp();
+        }else if (Input.mouseScrollDelta.y < 0)
+        {
+            ScrollDown();
         }
     }
+
+    void UpdateGun()
+    {
+        GunText.text = Guns[CurrentGunIndex].name;
+
+        foreach (GameObject gun in Guns)
+        {
+            if (gun.name == Guns[CurrentGunIndex].name)
+            {
+                gun.SetActive(true);
+                CurrentGun = gun;
+            }else
+            {
+                gun.SetActive(false);
+            }
+        }
+
+
+        if (CurrentGun.GetComponent<Shotgun>() != null)
+        {
+            GunType = "ShotGun";
+
+            CurrentGun.GetComponent<Shotgun>().isShootingShotGun = false;
+            CurrentGun.GetComponent<Shotgun>().isReloadingShotGun = false;
+        }
+        else if (CurrentGun.GetComponent<Revolver>() != null)
+        {
+            GunType = "Revolver";
+
+            CurrentGun.GetComponent<Revolver>().isShootingRevolver = false;
+            CurrentGun.GetComponent<Revolver>().isReloadingRevolver = false;
+        }
+        else if ( CurrentGun.GetComponent<Sniper>() != null)
+        {
+            GunType = "Sniper";
+
+            CurrentGun.GetComponent<Sniper>().isShootingSniper = false;
+            CurrentGun.GetComponent<Sniper>().isReloadingSniper = false;
+        }
+        else if (CurrentGun.GetComponent<Rifle>() != null)
+        {
+            GunType = "Rifle";
+
+            CurrentGun.GetComponent<Rifle>().isShootingRifle = false;
+            CurrentGun.GetComponent<Rifle>().isReloadingRifle = false;
+        }
+    }
+
+
+
+    void ScrollDown()
+    {
+        int index = CurrentGunIndex + 1;
+        if (index > Guns.Length - 1)
+        {
+            CurrentGunIndex = 0;
+        }else
+        {
+            CurrentGunIndex++;
+        }
+
+        
+        UpdateGun();
+    }
+
+    void ScrollUp()
+    {
+        int index = CurrentGunIndex - 1;
+
+        if (index < 0)
+        {
+            CurrentGunIndex = Guns.Length - 1;
+        }else
+        {
+            CurrentGunIndex--;
+        }
+        UpdateGun();
+    }
+
 }

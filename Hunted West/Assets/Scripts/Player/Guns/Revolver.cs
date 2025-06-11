@@ -10,6 +10,7 @@ public class Revolver : MonoBehaviour
     [SerializeField] float BulletSpeed;
     [SerializeField] float Delay;
     [SerializeField] int Damage;
+    [SerializeField] float LifeTime;
 
     [Header("Ammo")]
     [SerializeField] int MaxAmmo;
@@ -19,8 +20,8 @@ public class Revolver : MonoBehaviour
     [SerializeField] TextMeshProUGUI AmmoText;
     [SerializeField] string AmmoDevider = "/";
 
-    bool isShooting;
-    bool isReloading;
+    public bool isShootingRevolver;
+    public bool isReloadingRevolver;
 
 
 
@@ -33,7 +34,7 @@ public class Revolver : MonoBehaviour
 
     void Reload()
     {
-        if ((Input.GetKeyDown(KeyCode.R) && !isReloading && CurrentAmmo != MaxAmmo) || (CurrentAmmo <= 0 && !isReloading))
+        if ((Input.GetKeyDown(KeyCode.R) && !isReloadingRevolver && CurrentAmmo != MaxAmmo && Input.mouseScrollDelta.y == 0) || (CurrentAmmo <= 0 && !isReloadingRevolver && Input.mouseScrollDelta.y == 0))
         {
             StartCoroutine(IReload());
         }
@@ -44,13 +45,13 @@ public class Revolver : MonoBehaviour
 
     IEnumerator IReload()
     {
-        isReloading = true;
+        isReloadingRevolver = true;
 
         yield return new WaitForSeconds(ReloadTime);
 
         CurrentAmmo = MaxAmmo;
 
-        isReloading = false;
+        isReloadingRevolver = false;
     }
 
     private void Update()
@@ -70,7 +71,7 @@ public class Revolver : MonoBehaviour
 
     void Shoot()
     {
-        if (Input.GetMouseButtonDown(0) && !isShooting && !isReloading)
+        if (Input.GetMouseButtonDown(0) && !isShootingRevolver && !isReloadingRevolver && Input.mouseScrollDelta.y == 0)
         {
             StartCoroutine(IShoot());
         }
@@ -79,25 +80,67 @@ public class Revolver : MonoBehaviour
 
     IEnumerator IShoot()
     {
-        isShooting = true;
+        isShootingRevolver = true;
+
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            isShootingRevolver = false;
+            yield break;
+        }
 
         Vector3 MouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         MouseWorldPos.z = 0;
 
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            isShootingRevolver = false;
+            yield break;
+        }
+
         Vector3 Dir = (MouseWorldPos - transform.position).normalized;
 
         CurrentAmmo--;
 
-        GameObject Bullet = Instantiate(BulletPre, transform.position, Quaternion.identity);
-        Bullet.GetComponent<Bullet>().Setup(Dir, BulletSpeed, Damage);
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            isShootingRevolver = false;
+            yield break;
+        }
 
+        GameObject Bullet = Instantiate(BulletPre, transform.position, Quaternion.identity);
+        Bullet.GetComponent<Bullet>().Setup(Dir, BulletSpeed, Damage, LifeTime);
+
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            isShootingRevolver = false;
+            yield break;
+        }
 
         float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
         Bullet.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
 
-        yield return new WaitForSecondsRealtime(Delay);
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            isShootingRevolver = false;
+            yield break;
+        }
 
-        isShooting = false;
+        float elapsedTime = 0;
+
+        while (elapsedTime < Delay)
+        {
+            elapsedTime += Time.deltaTime;
+
+            if (Input.mouseScrollDelta.y != 0)
+            {
+                isShootingRevolver = false;
+                yield break;
+            }
+
+            yield return null;
+        }
+
+        isShootingRevolver = false;
     }
 }
