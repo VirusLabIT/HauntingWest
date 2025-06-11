@@ -184,6 +184,18 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6754294048627811318, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754294048627811318, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754294048627811318, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754294048627811318, guid: 55dc41df006800346996040a27510cff, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -264,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fececf6aa56b78043a8b581a53480293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Life: 15
+  Life: 50
   Damage: 25
   PuchLifeTime: 0.1
   MinTimePunch: 6

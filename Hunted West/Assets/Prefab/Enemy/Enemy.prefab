@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd315b4a4c722f94ca20fb374a2138cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Life: 3
+  Life: 5
   Damage: 5
   BulletSpeed: 12
   MinTimeSpawn: 1

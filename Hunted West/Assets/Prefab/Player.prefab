@@ -48,12 +48,14 @@ MonoBehaviour:
   ReloadTime: 3.5
   BulletSpeed: 15
   Delay: 0.1
-  Damage: 3
+  Damage: 2
   LifeTime: 2.5
   MaxAmmo: 35
   CurrentAmmo: 0
   AmmoText: {fileID: 0}
   AmmoDevider: /
+  isShootingRifle: 0
+  isReloadingRifle: 0
 --- !u!1 &887537942119806372
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,12 +104,14 @@ MonoBehaviour:
   ReloadTime: 3
   BulletSpeed: 20
   Delay: 1
-  Damage: 2
+  Damage: 7
   LifeTime: 2
   MaxAmmo: 6
   CurrentAmmo: 0
   AmmoText: {fileID: 0}
   AmmoDevider: /
+  isShootingRevolver: 0
+  isReloadingRevolver: 0
 --- !u!1 &900585122721492330
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6898797649050666750}
   - component: {fileID: 6941169801878759413}
-  - component: {fileID: 1887267675769986749}
+  - component: {fileID: 8809407514979946471}
   m_Layer: 0
   m_Name: VC
   m_TagString: Untagged
@@ -184,7 +188,7 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
---- !u!114 &1887267675769986749
+--- !u!114 &8809407514979946471
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,16 +197,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 900585122721492330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 886251e9a18ece04ea8e61686c173e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TrackerSettings:
-    BindingMode: 4
-    PositionDamping: {x: 1, y: 1, z: 1}
-    AngularDampingMode: 0
-    RotationDamping: {x: 1, y: 1, z: 1}
-    QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 0, z: -10}
+  CameraDistance: 10
+  DeadZoneDepth: 0
+  Composition:
+    ScreenPosition: {x: 0, y: 0}
+    DeadZone:
+      Enabled: 0
+      Size: {x: 0.2, y: 0.2}
+    HardLimits:
+      Enabled: 0
+      Size: {x: 0.8, y: 0.8}
+      Offset: {x: 0, y: 0}
+  CenterOnActivate: 1
+  TargetOffset: {x: 0, y: 0, z: 0}
+  Damping: {x: 1, y: 1, z: 1}
+  Lookahead:
+    Enabled: 1
+    Time: 0.155
+    Smoothing: 1.4
+    IgnoreY: 0
 --- !u!1 &1804206919693407035
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,12 +267,14 @@ MonoBehaviour:
   ReloadTime: 6
   BulletSpeed: 35
   Delay: 3
-  Damage: 5
+  Damage: 20
   LifeTime: 3
   MaxAmmo: 3
   CurrentAmmo: 0
   AmmoText: {fileID: 0}
   AmmoDevider: /
+  isShootingSniper: 0
+  isReloadingSniper: 0
 --- !u!1 &2972884974550641174
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,6 +331,7 @@ MonoBehaviour:
   - {fileID: 1804206919693407035}
   CurrentGun: {fileID: 0}
   CurrentGunIndex: 0
+  GunType: 
 --- !u!1 &3293415600062151128
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +380,7 @@ MonoBehaviour:
   ReloadTime: 3
   BulletSpeed: 23
   Delay: 0.7
-  Damage: 2
+  Damage: 3
   MinNumOfShootsInOne: 3
   MaxNumOfShootsInOne: 7
   LifeTime: 0.3
@@ -369,6 +388,8 @@ MonoBehaviour:
   CurrentAmmo: 0
   AmmoText: {fileID: 0}
   AmmoDevider: /
+  isShootingShotGun: 0
+  isReloadingShotGun: 0
 --- !u!1 &6538799095370295837
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,7 +632,7 @@ MonoBehaviour:
   IgnoreTimeScale: 0
   WorldUpOverride: {fileID: 0}
   ChannelMask: -1
-  UpdateMethod: 2
+  UpdateMethod: 0
   BlendUpdateMethod: 1
   LensModeOverride:
     Enabled: 0
@@ -746,7 +767,7 @@ MonoBehaviour:
   Speed: 5
   DashSpeed: 15
   DashTime: 0.1
-  StaminaCost: 10
+  isDashing: 0
 --- !u!114 &149137530061230665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -775,12 +796,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98d9aaf86257df43aee6c3e18c85c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxStamina: 100
-  CurrentStamina: 0
-  isRegenarating: 0
-  MinStaminaToRegenarate: 15
-  StaminaTXT: {fileID: 0}
-  StaminaSlider: {fileID: 0}
+  ManaSlider: {fileID: 0}
+  currentmana: 1
+  isregen: 0
 --- !u!114 &1163637641452013348
 MonoBehaviour:
   m_ObjectHideFlags: 0
