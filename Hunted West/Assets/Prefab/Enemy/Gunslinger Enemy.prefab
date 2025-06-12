@@ -179,11 +179,11 @@ MonoBehaviour:
   IsShooting: 1
   EnemyBullet: {fileID: 7737587605423003973, guid: 7ccb7867cf9bb084d9ce20b5e6bff121, type: 3}
   Coin: {fileID: 3016924648533934902, guid: 3467dbba62d8a6145987239a00f44df5, type: 3}
-  PosRanRadios: 5
+  PosRanRadios: 7
   playerLayer:
     serializedVersion: 2
     m_Bits: 47
   MinCoinsToSpawn: 1
-  MaxCoinsToSpawn: 5
+  MaxCoinsToSpawn: 3
   MinShootInOneRound: 1
   MaxShootInOneRound: 5

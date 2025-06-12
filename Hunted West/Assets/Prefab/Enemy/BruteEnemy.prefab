@@ -290,8 +290,8 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 47
-  MinCoinsToSpawn: 0
-  MaxCoinsToSpawn: 3
+  MinCoinsToSpawn: 1
+  MaxCoinsToSpawn: 8
 --- !u!4 &5981711526306182918 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6754294048627811318, guid: 55dc41df006800346996040a27510cff, type: 3}

@@ -40,6 +40,7 @@ public class GunSlingerEnemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        Player = GameObject.Find("Player");
     }
 
 
@@ -103,7 +104,7 @@ public class GunSlingerEnemy : MonoBehaviour
 
     void SpawnCoins()
     {
-        int coinstospawn = Random.Range(MinCoinsToSpawn--, MaxCoinsToSpawn);
+        int coinstospawn = Random.Range(MinCoinsToSpawn, MaxCoinsToSpawn--);
 
         print("Coins Spawned: " + coinstospawn);
 
