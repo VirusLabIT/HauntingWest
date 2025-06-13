@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Coin
   - Wall
+  - Breakble
   layers:
   - Default
   - TransparentFX

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Bullet : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        print("HIT");
         if (!collision.CompareTag("Player") && !collision.CompareTag("Bullet"))
         {
             if (collision.gameObject.layer == 7)
@@ -48,6 +50,13 @@ public class Bullet : MonoBehaviour
             }else if (collision.CompareTag("Wall"))
             {
                 print(collision.name);
+                hitDetection = false;
+                bulletDetection = false;
+                Destroy(gameObject);
+            }else if (collision.CompareTag("Breakble"))
+            {
+                collision.gameObject.GetComponent<Breakble>().LiveUpdate();
+                print(collision.name + " Is Colid");
                 hitDetection = false;
                 bulletDetection = false;
                 Destroy(gameObject);

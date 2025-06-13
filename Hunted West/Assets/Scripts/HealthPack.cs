@@ -3,13 +3,18 @@ using UnityEngine;
 public class HealthPack : MonoBehaviour
 {
     [SerializeField] int HealthPackValue = 10;
+    Animator animator;
 
-
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
+            animator.SetTrigger("PickedUp");
 
             Health health = collision.gameObject.GetComponent<Health>();
 
@@ -25,7 +30,7 @@ public class HealthPack : MonoBehaviour
                 health.ClampHealth(health.health);
             }
 
-            Destroy(gameObject);
+            Destroy(gameObject, .5f);
 
         }
     }
