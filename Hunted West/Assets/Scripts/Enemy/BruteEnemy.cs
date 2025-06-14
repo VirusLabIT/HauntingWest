@@ -20,6 +20,8 @@ public class BruteEnemy : MonoBehaviour
     [SerializeField] GameObject PunchBox;
     [SerializeField] GameObject Coin;
     [SerializeField] SpriteRenderer IndicatorSprite;
+    [SerializeField] ParticleSystem BloodPar;
+    [SerializeField] GameObject Art;
 
     [Header("RandomStats")]
     [SerializeField] float PosRanRadios = 2.0f;
@@ -49,22 +51,25 @@ public class BruteEnemy : MonoBehaviour
 
         isPlayerDirect = IsAnyThingBetweenPlayer(Player.transform.position);
 
-        if ((IsPlayerDetected && isPlayerDirect) || IsBulletDetected)
+        if (GetComponent<NavMeshAgent>() != null)
         {
-            SetTarget(Player.transform.position);
-            LookAt(Player.transform.position);
-            if (IsPuching && Vector3.Distance(transform.position, Player.transform.position) < 4) { Spawn(); }
+            if ((IsPlayerDetected && isPlayerDirect) || IsBulletDetected)
+            {
+                SetTarget(Player.transform.position);
+                LookAt(Player.transform.position);
+                if (IsPuching && Vector3.Distance(transform.position, Player.transform.position) < 4) { Spawn(); }
 
-            if (!IsPlayerDetected)
-            {
-                IsBulletDetected = false;
+                if (!IsPlayerDetected)
+                {
+                    IsBulletDetected = false;
+                }
             }
-        }
-        else
-        {
-            if (!isGoingToRanPos)
+            else
             {
-                StartCoroutine(GoToRanPos());
+                if (!isGoingToRanPos)
+                {
+                    StartCoroutine(GoToRanPos());
+                }
             }
         }
     }
@@ -73,13 +78,13 @@ public class BruteEnemy : MonoBehaviour
     {
         isGoingToRanPos = true;
         print("No Player Detected Portocol");
-        while (!IsPlayerDetected || !isPlayerDirect)
+        while (!IsPlayerDetected || !isPlayerDirect && GetComponent<NavMeshAgent>() != null)
         {
             Vector3 pos = PickRanDestenation(transform);
             //Debug.Log("SettingTarget " + pos);
             SetTarget(pos);
 
-            while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance || agent.velocity.sqrMagnitude > 0f)
+            while (GetComponent<NavMeshAgent>() != null && agent.pathPending || agent.remainingDistance > agent.stoppingDistance || agent.velocity.sqrMagnitude > 0f)
             {
                 // Check again mid-movement if player becomes visible
                 if (IsPlayerDetected && isPlayerDirect)
@@ -168,11 +173,14 @@ public class BruteEnemy : MonoBehaviour
 
     void LookAt(Vector3 target)
     {
-        Vector2 dir = (target - transform.position).normalized;
+        if (agent.speed != 0)
+        {
+            Vector3 lool = transform.InverseTransformPoint(target);
 
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(lool.y, lool.x) * Mathf.Rad2Deg - 90;
 
-        transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+            transform.Rotate(0, 0, angle);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -187,8 +195,7 @@ public class BruteEnemy : MonoBehaviour
 
             if (Life <= 0)
             {
-                SpawnCoins();
-                Destroy(gameObject);
+                StartCoroutine(IDeath());
             }
 
             IsBulletDetected = false;
@@ -201,10 +208,37 @@ public class BruteEnemy : MonoBehaviour
 
     }
 
+    void Kill()
+    {
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<NavMeshAgent>().speed = 0;
+        Art.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    IEnumerator IDeath()
+    {
+        SpawnCoins();
+
+        if (!BloodPar.isPlaying)
+        {
+            BloodPar.Play();
+        }
+        Kill();
+        while (BloodPar.isPlaying)
+        {
+            yield return null;
+        }
+
+        Destroy(gameObject);
+    }
 
     void SetTarget(Vector3 target)
     {
-        agent.SetDestination(target);
+        if (GetComponent<NavMeshAgent>() != null)
+        {
+            agent.SetDestination(target);
+        }
     }
 
 
@@ -221,27 +255,30 @@ public class BruteEnemy : MonoBehaviour
 
     IEnumerator ISpawn()
     {
-        Color orgColor = IndicatorSprite.color;
+        if (agent.speed != 0)
+        {
+            Color orgColor = IndicatorSprite.color;
 
-        IndicatorSprite.color = Color.red;
+            IndicatorSprite.color = Color.red;
 
-        isSpawning = true;
+            isSpawning = true;
 
-        print("Punch");
+            print("Punch");
 
-        PunchBox.SetActive(true);
+            PunchBox.SetActive(true);
 
-        yield return new WaitForSecondsRealtime(PuchLifeTime);
+            yield return new WaitForSecondsRealtime(PuchLifeTime);
 
-        PunchBox.SetActive(false);
+            PunchBox.SetActive(false);
 
-        IndicatorSprite.color = orgColor;
+            IndicatorSprite.color = orgColor;
 
-        float time = Random.Range(MinTimePunch, MaxTimePunch);
+            float time = Random.Range(MinTimePunch, MaxTimePunch);
 
-        yield return new WaitForSecondsRealtime(time);
+            yield return new WaitForSecondsRealtime(time);
 
-        isSpawning = false;
+            isSpawning = false;
+        }
     }
 
 }

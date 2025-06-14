@@ -214,6 +214,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: FastEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5647987044103899893, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647987044103899893, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647987044103899893, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].value
+      value: 0.20289612
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647987044103899893, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647987044103899893, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647987044103899893, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647987044103899893, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647987044103899893, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647987044103899893, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6711546267096902770, guid: 55dc41df006800346996040a27510cff, type: 3}
       propertyPath: m_Radius
       value: 8
@@ -258,6 +294,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7451861211997793533, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7451861211997793533, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501897335345343319, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8519503429008388276, guid: 55dc41df006800346996040a27510cff, type: 3}
       propertyPath: m_Color.b
       value: 0.466427
@@ -270,9 +318,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.30860624
       objectReference: {fileID: 0}
+    - target: {fileID: 8519503429008388276, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1567441614215145817, guid: 55dc41df006800346996040a27510cff, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 482442181791396392, guid: 55dc41df006800346996040a27510cff, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6754294048627811318, guid: 55dc41df006800346996040a27510cff, type: 3}
       insertIndex: -1
@@ -285,6 +338,16 @@ PrefabInstance:
       insertIndex: 3
       addedObject: {fileID: 4368513522044599534}
   m_SourcePrefab: {fileID: 100100000, guid: 55dc41df006800346996040a27510cff, type: 3}
+--- !u!1 &3914609316340441639 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4285907617189304345, guid: 55dc41df006800346996040a27510cff, type: 3}
+  m_PrefabInstance: {fileID: 948542272660421182}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4848204581178437835 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5647987044103899893, guid: 55dc41df006800346996040a27510cff, type: 3}
+  m_PrefabInstance: {fileID: 948542272660421182}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5240267159825321211 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5012731906980394693, guid: 55dc41df006800346996040a27510cff, type: 3}
@@ -315,6 +378,8 @@ MonoBehaviour:
   Player: {fileID: 0}
   IsAttacking: 1
   Coin: {fileID: 3016924648533934902, guid: 3467dbba62d8a6145987239a00f44df5, type: 3}
+  BloodPar: {fileID: 4848204581178437835}
+  Art: {fileID: 3914609316340441639}
   PosRanRadios: 10
   playerLayer:
     serializedVersion: 2

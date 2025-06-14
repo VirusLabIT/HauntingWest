@@ -22,6 +22,8 @@ public class FastEnemy : MonoBehaviour
     [SerializeField] GameObject Player;
     [SerializeField] bool IsAttacking = true;
     [SerializeField] GameObject Coin;
+    [SerializeField] ParticleSystem BloodPar;
+    [SerializeField] GameObject Art;
 
     [Header("RandomStats")]
     [SerializeField] float PosRanRadios = 2.0f;
@@ -53,22 +55,25 @@ public class FastEnemy : MonoBehaviour
 
         isPlayerDirect = IsAnyThingBetweenPlayer(Player.transform.position);
 
-        if (IsPlayerDetected && isPlayerDirect || IsBulletDetected)
+        if (GetComponent<NavMeshAgent>() != null)
         {
-            SetTarget(Player.transform.position);
-            LookAt(Player.transform.position);
-            if (IsAttacking) { Spawn(); }
+            if (IsPlayerDetected && isPlayerDirect || IsBulletDetected)
+            {
+                SetTarget(Player.transform.position);
+                LookAt(Player.transform.position);
+                if (IsAttacking) { Spawn(); }
 
-            if (!IsPlayerDetected)
-            {
-                IsBulletDetected = false;
+                if (!IsPlayerDetected)
+                {
+                    IsBulletDetected = false;
+                }
             }
-        }
-        else
-        {
-            if (!isGoingToRanPos)
+            else
             {
-                StartCoroutine(GoToRanPos());
+                if (!isGoingToRanPos)
+                {
+                    StartCoroutine(GoToRanPos());
+                }
             }
         }
     }
@@ -77,7 +82,7 @@ public class FastEnemy : MonoBehaviour
     {
         isGoingToRanPos = true;
         print("No Player Detected Portocol");
-        while (!IsPlayerDetected || !isPlayerDirect)
+        while (!IsPlayerDetected || !isPlayerDirect && GetComponent<NavMeshAgent>() != null)
         {
             agent.speed = IdleSpeed;
 
@@ -85,7 +90,7 @@ public class FastEnemy : MonoBehaviour
             //Debug.Log("SettingTarget " + pos);
             SetTarget(pos);
 
-            while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance || agent.velocity.sqrMagnitude > 0f)
+            while (GetComponent<NavMeshAgent>() != null && agent.pathPending || agent.remainingDistance > agent.stoppingDistance || agent.velocity.sqrMagnitude > 0f)
             {
                 // Check again mid-movement if player becomes visible
                 if (IsPlayerDetected && isPlayerDirect)
@@ -174,11 +179,14 @@ public class FastEnemy : MonoBehaviour
 
     void LookAt(Vector3 target)
     {
-        Vector3 lool = transform.InverseTransformPoint(target);
+        if (agent.speed != 0)
+        {
+            Vector3 lool = transform.InverseTransformPoint(target);
 
-        float angle = Mathf.Atan2(lool.y, lool.x) * Mathf.Rad2Deg - 90;
+            float angle = Mathf.Atan2(lool.y, lool.x) * Mathf.Rad2Deg - 90;
 
-        transform.Rotate(0, 0, angle);
+            transform.Rotate(0, 0, angle);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -192,8 +200,7 @@ public class FastEnemy : MonoBehaviour
 
             if (Life <= 0)
             {
-                SpawnCoins();
-                Destroy(gameObject);
+                StartCoroutine(IDeath());
             }
 
             IsBulletDetected = false;
@@ -206,10 +213,37 @@ public class FastEnemy : MonoBehaviour
 
     }
 
+    void Kill()
+    {
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<NavMeshAgent>().speed = 0;
+        Art.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    IEnumerator IDeath()
+    {
+        SpawnCoins();
+
+        if (!BloodPar.isPlaying)
+        {
+            BloodPar.Play();
+        }
+        Kill();
+        while (BloodPar.isPlaying)
+        {
+            yield return null;
+        }
+
+        Destroy(gameObject);
+    }
 
     void SetTarget(Vector3 target)
     {
-        agent.SetDestination(target);
+        if (GetComponent<NavMeshAgent>() != null)
+        {
+            agent.SetDestination(target);
+        }
     }
 
 
@@ -226,49 +260,52 @@ public class FastEnemy : MonoBehaviour
 
     IEnumerator ISpawn()
     {
-        isSpawning = true;
-
-        print("Shoot");
-
-        agent.speed = AttackSpeed;
-
-        float elapsedTime = 0;
-
-        float timeBefore = Time.realtimeSinceStartup;
-
-        while (!attackDitection.IsPlayerDetectedInAttackRadios)
+        if (agent.speed != 0)
         {
-            elapsedTime = (Time.realtimeSinceStartup) - timeBefore;
-            if (elapsedTime > TimeToWaitBeforeCanceling)
+            isSpawning = true;
+
+            print("Shoot");
+
+            agent.speed = AttackSpeed;
+
+            float elapsedTime = 0;
+
+            float timeBefore = Time.realtimeSinceStartup;
+
+            while (!attackDitection.IsPlayerDetectedInAttackRadios)
             {
-                agent.speed = IdleSpeed;
+                elapsedTime = (Time.realtimeSinceStartup) - timeBefore;
+                if (elapsedTime > TimeToWaitBeforeCanceling)
+                {
+                    agent.speed = IdleSpeed;
 
-                float intime = Random.Range(MinTimeAttack, MaxTimeAttack);
+                    float intime = Random.Range(MinTimeAttack, MaxTimeAttack);
 
-                yield return new WaitForSecondsRealtime(intime);
+                    yield return new WaitForSecondsRealtime(intime);
 
-                isSpawning = false;
-                yield break;
+                    isSpawning = false;
+                    yield break;
+                }
+                print(elapsedTime);
+                yield return null;
             }
-            print(elapsedTime);
-            yield return null;
+
+            print("Attacking");
+            yield return new WaitForSecondsRealtime(AttackDelay);
+
+            AttackBox.SetActive(true);
+
+            yield return new WaitForSecondsRealtime(AttackTime);
+
+            AttackBox.SetActive(false);
+
+            agent.speed = IdleSpeed;
+
+            float time = Random.Range(MinTimeAttack, MaxTimeAttack);
+
+            yield return new WaitForSecondsRealtime(time);
+
+            isSpawning = false;
         }
-
-        print("Attacking");
-        yield return new WaitForSecondsRealtime(AttackDelay);
-
-        AttackBox.SetActive(true);
-
-        yield return new WaitForSecondsRealtime(AttackTime);
-
-        AttackBox.SetActive(false);
-
-        agent.speed = IdleSpeed;
-
-        float time = Random.Range(MinTimeAttack, MaxTimeAttack);
-
-        yield return new WaitForSecondsRealtime(time);
-
-        isSpawning = false;
     }
 }

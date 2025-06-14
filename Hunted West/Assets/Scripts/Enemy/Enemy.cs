@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] bool IsShooting = true;
     [SerializeField] GameObject EnemyBullet;
     [SerializeField] GameObject Coin;
+    [SerializeField] ParticleSystem BloodPar;
+    [SerializeField] GameObject Art;
 
     [Header("RandomStats")]
     [SerializeField] float PosRanRadios = 2.0f;
@@ -48,22 +50,25 @@ public class Enemy : MonoBehaviour
 
         isPlayerDirect = IsAnyThingBetweenPlayer(Player.transform.position);
 
-        if (IsPlayerDetected && isPlayerDirect || IsBulletDetected)
+        if (GetComponent<NavMeshAgent>() != null )
         {
-            SetTarget(Player.transform.position);
-            LookAt(Player.transform.position);
-            if (IsShooting) { Spawn(); }
+            if (IsPlayerDetected && isPlayerDirect || IsBulletDetected)
+            {
+                SetTarget(Player.transform.position);
+                LookAt(Player.transform.position);
+                if (IsShooting) { Spawn(); }
 
-            if (!IsPlayerDetected)
-            {
-                IsBulletDetected = false;
+                if (!IsPlayerDetected)
+                {
+                    IsBulletDetected = false;
+                }
             }
-        }
-        else
-        {
-            if (!isGoingToRanPos)
+            else
             {
-                StartCoroutine(GoToRanPos());
+                if (!isGoingToRanPos)
+                {
+                    StartCoroutine(GoToRanPos());
+                }
             }
         }
     }
@@ -72,13 +77,13 @@ public class Enemy : MonoBehaviour
     {
         isGoingToRanPos = true;
         print("No Player Detected Portocol");
-        while (!IsPlayerDetected || !isPlayerDirect)
+        while (!IsPlayerDetected || !isPlayerDirect && GetComponent<NavMeshAgent>() != null)
         {
             Vector3 pos = PickRanDestenation(transform);
             //Debug.Log("SettingTarget " + pos);
             SetTarget(pos);
 
-            while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance || agent.velocity.sqrMagnitude > 0f)
+            while (GetComponent<NavMeshAgent>() != null && agent.pathPending || agent.remainingDistance > agent.stoppingDistance || agent.velocity.sqrMagnitude > 0f)
             {
                 // Check again mid-movement if player becomes visible
                 if (IsPlayerDetected && isPlayerDirect)
@@ -137,14 +142,14 @@ public class Enemy : MonoBehaviour
             }
         }
 
-            return false;
+        return false;
 
-    } 
+    }
 
     Vector3 PickRanDestenation(Transform position)
     {
 
-        for (int i = 0; i < 10 ; i++)
+        for (int i = 0; i < 10; i++)
         {
             float randomModX = Random.Range(-PosRanRadios, PosRanRadios);
             float randomModY = Random.Range(-PosRanRadios, PosRanRadios);
@@ -167,11 +172,14 @@ public class Enemy : MonoBehaviour
 
     void LookAt(Vector3 target)
     {
-        Vector3 lool = transform.InverseTransformPoint(target);
+        if (agent.speed != 0)
+        {
+            Vector3 lool = transform.InverseTransformPoint(target);
 
-        float angle = Mathf.Atan2(lool.y, lool.x) * Mathf.Rad2Deg - 90;
+            float angle = Mathf.Atan2(lool.y, lool.x) * Mathf.Rad2Deg - 90;
 
-        transform.Rotate(0, 0, angle);
+            transform.Rotate(0, 0, angle);
+        } 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -185,23 +193,49 @@ public class Enemy : MonoBehaviour
 
             if (Life <= 0)
             {
-                SpawnCoins();
-                Destroy(gameObject);
+                StartCoroutine(IDeath());
             }
 
             IsBulletDetected = false;
-        }else if (collision.GetComponent<Bullet>() != null && collision.GetComponent<Bullet>().bulletDetection)
+        } else if (collision.GetComponent<Bullet>() != null && collision.GetComponent<Bullet>().bulletDetection)
         {
             IsBulletDetected = true;
         }
 
-        
+
     }
 
+    void Kill()
+    {
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<NavMeshAgent>().speed = 0;
+        Art.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    IEnumerator IDeath()
+    {
+        SpawnCoins();
+
+        if (!BloodPar.isPlaying)
+        {
+            BloodPar.Play();
+        }
+        Kill();
+        while (BloodPar.isPlaying)
+        {
+            yield return null;
+        }
+
+        Destroy(gameObject);
+    }
 
     void SetTarget(Vector3 target)
     {
-        agent.SetDestination(target);
+        if (GetComponent<NavMeshAgent>() != null)
+        {
+            agent.SetDestination(target);
+        }
     }
 
 
@@ -218,25 +252,28 @@ public class Enemy : MonoBehaviour
 
     IEnumerator ISpawn()
     {
-        isSpawning = true;
+        if (agent.speed != 0)
+        {
+            isSpawning = true;
 
-        print("Shoot");
-        Vector3 Dir = (Player.transform.position - transform.position).normalized;
-
-
-        GameObject EBullet = Instantiate(EnemyBullet, transform.position, Quaternion.identity);
-        EBullet.GetComponent<EBullet>().ESetup(Dir, BulletSpeed, Damage);
+            print("Shoot");
+            Vector3 Dir = (Player.transform.position - transform.position).normalized;
 
 
-        float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
-        EBullet.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
-
-        float time = Random.Range(MinTimeSpawn, MaxTimeSpawn);
+            GameObject EBullet = Instantiate(EnemyBullet, transform.position, Quaternion.identity);
+            EBullet.GetComponent<EBullet>().ESetup(Dir, BulletSpeed, Damage);
 
 
-        yield return new WaitForSecondsRealtime(time);
+            float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
+            EBullet.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
 
-        isSpawning = false;
+            float time = Random.Range(MinTimeSpawn, MaxTimeSpawn);
+
+
+            yield return new WaitForSecondsRealtime(time);
+
+            isSpawning = false;
+        }
     }
 
 }
