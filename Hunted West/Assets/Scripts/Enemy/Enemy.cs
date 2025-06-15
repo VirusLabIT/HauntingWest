@@ -27,7 +27,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] LayerMask playerLayer;
     [SerializeField] int MinCoinsToSpawn = 0;
     [SerializeField] int MaxCoinsToSpawn = 3;
+    [SerializeField] GameObject HealthPack;
 
+
+    bool Dead;
     bool isPlayerDirect;
     bool isSpawning = false;
     bool isGoingToRanPos = false;
@@ -104,7 +107,20 @@ public class Enemy : MonoBehaviour
         isGoingToRanPos = false;
     }
 
+    void SpawnHealthPack()
+    {
+        int chance = Random.Range(1, 11);
 
+
+        if (chance >= 5)
+        {
+            Vector3 Ofsset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+
+            Vector3 pos = gameObject.transform.position + Ofsset;
+
+            Instantiate(HealthPack, pos, Quaternion.Euler(0, 0, 0));
+        }
+    }
     void SpawnCoins()
     {
         int coinstospawn = Random.Range(MinCoinsToSpawn, MaxCoinsToSpawn--);
@@ -191,7 +207,7 @@ public class Enemy : MonoBehaviour
             Life -= damage;
             print(Life);
 
-            if (Life <= 0)
+            if (Life <= 0 && !Dead)
             {
                 StartCoroutine(IDeath());
             }
@@ -215,8 +231,9 @@ public class Enemy : MonoBehaviour
 
     IEnumerator IDeath()
     {
+        Dead = true;
         SpawnCoins();
-
+        SpawnHealthPack();
         if (!BloodPar.isPlaying)
         {
             BloodPar.Play();

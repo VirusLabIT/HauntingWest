@@ -24,6 +24,7 @@ public class FastEnemy : MonoBehaviour
     [SerializeField] GameObject Coin;
     [SerializeField] ParticleSystem BloodPar;
     [SerializeField] GameObject Art;
+    [SerializeField] GameObject HealthPack;
 
     [Header("RandomStats")]
     [SerializeField] float PosRanRadios = 2.0f;
@@ -31,6 +32,8 @@ public class FastEnemy : MonoBehaviour
     [SerializeField] int MinCoinsToSpawn = 0;
     [SerializeField] int MaxCoinsToSpawn = 3;
 
+
+    bool Dead;
     bool isPlayerDirect;
     bool isSpawning = false;
     bool isGoingToRanPos = false;
@@ -198,7 +201,7 @@ public class FastEnemy : MonoBehaviour
             Life -= damage;
             print(Life);
 
-            if (Life <= 0)
+            if (Life <= 0 && !Dead)
             {
                 StartCoroutine(IDeath());
             }
@@ -213,6 +216,21 @@ public class FastEnemy : MonoBehaviour
 
     }
 
+    void SpawnHealthPack()
+    {
+        int chance = Random.Range(1, 11);
+
+
+        if (chance >= 5)
+        {
+            Vector3 Ofsset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+
+            Vector3 pos = gameObject.transform.position + Ofsset;
+
+            Instantiate(HealthPack, pos, Quaternion.Euler(0, 0, 0));
+        }
+    }
+
     void Kill()
     {
         GetComponent<SpriteRenderer>().enabled = false;
@@ -223,13 +241,15 @@ public class FastEnemy : MonoBehaviour
 
     IEnumerator IDeath()
     {
+        Dead = true;
         SpawnCoins();
-
+        SpawnHealthPack();
         if (!BloodPar.isPlaying)
         {
             BloodPar.Play();
         }
         Kill();
+        AttackBox.SetActive(false);
         while (BloodPar.isPlaying)
         {
             yield return null;
@@ -272,7 +292,7 @@ public class FastEnemy : MonoBehaviour
 
             float timeBefore = Time.realtimeSinceStartup;
 
-            while (!attackDitection.IsPlayerDetectedInAttackRadios)
+            while (!attackDitection.IsPlayerDetectedInAttackRadios && agent.speed != 0)
             {
                 elapsedTime = (Time.realtimeSinceStartup) - timeBefore;
                 if (elapsedTime > TimeToWaitBeforeCanceling)
@@ -295,7 +315,17 @@ public class FastEnemy : MonoBehaviour
 
             AttackBox.SetActive(true);
 
+            if (agent.speed == 0)
+            {
+                AttackBox.SetActive(false);
+            }
+
             yield return new WaitForSecondsRealtime(AttackTime);
+
+            if (agent.speed == 0)
+            {
+                AttackBox.SetActive(false);
+            }
 
             AttackBox.SetActive(false);
 

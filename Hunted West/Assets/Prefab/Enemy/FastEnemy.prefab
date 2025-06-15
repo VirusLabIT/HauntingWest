@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5739479024413947271}
   - component: {fileID: 540147095043310058}
-  m_Layer: 4
+  - component: {fileID: 2546178878915729381}
+  m_Layer: 8
   m_Name: AttackRadios
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,6 +69,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 3
+--- !u!114 &2546178878915729381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445102206087935239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5143734828cf0654cb5582da5505c18f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsPlayerDetectedInAttackRadios: 0
 --- !u!1 &1813880244977312527
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,7 +99,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7929423011421512176
 Transform:
   m_ObjectHideFlags: 0
@@ -210,6 +224,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4285907617189304345, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5012731906980394693, guid: 55dc41df006800346996040a27510cff, type: 3}
       propertyPath: m_Name
       value: FastEnemy
@@ -320,7 +338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8519503429008388276, guid: 55dc41df006800346996040a27510cff, type: 3}
       propertyPath: m_SortingOrder
-      value: 3
+      value: 26
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1567441614215145817, guid: 55dc41df006800346996040a27510cff, type: 3}
@@ -380,6 +398,7 @@ MonoBehaviour:
   Coin: {fileID: 3016924648533934902, guid: 3467dbba62d8a6145987239a00f44df5, type: 3}
   BloodPar: {fileID: 4848204581178437835}
   Art: {fileID: 3914609316340441639}
+  HealthPack: {fileID: 8779058764682370823, guid: 476f5d82e26d3a942bf2f3fce98ef297, type: 3}
   PosRanRadios: 10
   playerLayer:
     serializedVersion: 2

@@ -22,6 +22,7 @@ public class BruteEnemy : MonoBehaviour
     [SerializeField] SpriteRenderer IndicatorSprite;
     [SerializeField] ParticleSystem BloodPar;
     [SerializeField] GameObject Art;
+    [SerializeField] GameObject HealthPack;
 
     [Header("RandomStats")]
     [SerializeField] float PosRanRadios = 2.0f;
@@ -29,6 +30,8 @@ public class BruteEnemy : MonoBehaviour
     [SerializeField] int MinCoinsToSpawn = 0;
     [SerializeField] int MaxCoinsToSpawn = 3;
 
+
+    bool Dead;
     bool isPlayerDirect;
     bool isSpawning = false;
     bool isGoingToRanPos = false;
@@ -193,7 +196,7 @@ public class BruteEnemy : MonoBehaviour
             Life -= damage;
             print(Life);
 
-            if (Life <= 0)
+            if (Life <= 0 && !Dead)
             {
                 StartCoroutine(IDeath());
             }
@@ -208,6 +211,21 @@ public class BruteEnemy : MonoBehaviour
 
     }
 
+    void SpawnHealthPack()
+    {
+        int chance = Random.Range(1, 11);
+
+
+        if (chance >= 5)
+        {
+            Vector3 Ofsset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+
+            Vector3 pos = gameObject.transform.position + Ofsset;
+
+            Instantiate(HealthPack, pos, Quaternion.Euler(0, 0, 0));
+        }
+    }
+
     void Kill()
     {
         GetComponent<SpriteRenderer>().enabled = false;
@@ -218,13 +236,15 @@ public class BruteEnemy : MonoBehaviour
 
     IEnumerator IDeath()
     {
+        Dead = true;
         SpawnCoins();
-
+        SpawnHealthPack();
         if (!BloodPar.isPlaying)
         {
             BloodPar.Play();
         }
         Kill();
+        PunchBox.SetActive(false);
         while (BloodPar.isPlaying)
         {
             yield return null;

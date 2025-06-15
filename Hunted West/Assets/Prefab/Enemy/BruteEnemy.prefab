@@ -4988,6 +4988,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 523875889093690219, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: m_SortingOrder
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 1567441614215145817, guid: 55dc41df006800346996040a27510cff, type: 3}
       propertyPath: Life
       value: 7
@@ -5080,6 +5084,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.3962264
       objectReference: {fileID: 0}
+    - target: {fileID: 8519503429008388276, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: m_SortingOrder
+      value: 26
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1567441614215145817, guid: 55dc41df006800346996040a27510cff, type: 3}
     m_RemovedGameObjects:
@@ -5130,6 +5138,7 @@ MonoBehaviour:
   IndicatorSprite: {fileID: 8684074145847993412}
   BloodPar: {fileID: 6469563791564757891}
   Art: {fileID: 3874720840136101097}
+  HealthPack: {fileID: 8779058764682370823, guid: 476f5d82e26d3a942bf2f3fce98ef297, type: 3}
   PosRanRadios: 8
   playerLayer:
     serializedVersion: 2
