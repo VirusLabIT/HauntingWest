@@ -62,9 +62,9 @@ public class Movement : MonoBehaviour
         else
         {
             Vector2 Dir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            Dir = Dir.normalized * Speed * PlayerSpeedMod * Time.deltaTime;
+            Dir = Dir.normalized * Speed * PlayerSpeedMod;
 
-            rb2d.linearVelocity = Dir * 100;
+            rb2d.linearVelocity = Dir;
 
         }
     }

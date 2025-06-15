@@ -15,6 +15,8 @@ public class Shotgun : MonoBehaviour
     [SerializeField] int MaxNumOfShootsInOne = 7;
     [SerializeField] float LifeTime;
 
+    [Header("Serialized Fields")]
+    [SerializeField] GameObject BulletShootingPoint;
 
     [Header("Ammo")]
     [SerializeField] int MaxAmmo;
@@ -102,7 +104,7 @@ public class Shotgun : MonoBehaviour
             yield break;
         }
 
-        Vector3 Dir = (MouseWorldPos - transform.position).normalized;
+        Vector3 Dir = (MouseWorldPos - BulletShootingPoint.transform.position).normalized;
 
         CurrentAmmo--;
 
@@ -125,7 +127,7 @@ public class Shotgun : MonoBehaviour
                 yield break;
             }
 
-            GameObject Bullet = Instantiate(BulletPre, transform.position, Quaternion.identity);
+            GameObject Bullet = Instantiate(BulletPre, BulletShootingPoint.transform.position, Quaternion.identity);
             Bullet.GetComponent<Bullet>().Setup(Dir + ofset, BulletSpeed, Damage, LifeTime);
 
             if (Input.mouseScrollDelta.y != 0)

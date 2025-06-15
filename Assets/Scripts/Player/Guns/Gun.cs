@@ -17,7 +17,7 @@ public class Gun : MonoBehaviour
     private void Update()
     {
         //ScrollManager();
-        UpdateGun();
+        //UpdateGun();
     }
 
     private void Start()
@@ -39,7 +39,7 @@ public class Gun : MonoBehaviour
         }
     }
 */
-    void UpdateGun()
+    public void UpdateGun()
     {
         GunText.text = Guns[CurrentGunIndex].name;
 
@@ -88,26 +88,8 @@ public class Gun : MonoBehaviour
 
     public void DropGun()
     {
-        switch (CurrentGunIndex)
-        {
-            case 0:
-                // No action taken for now
-                Instantiate(DroppedGuns[0], transform.position, Quaternion.identity);
-                break;
-            case 1:
-                // No action taken for now
-                Instantiate(DroppedGuns[1], transform.position, Quaternion.identity);
-                break;
-            case 2:
-                // No action taken for now
-                Instantiate(DroppedGuns[2], transform.position, Quaternion.identity);
-                break;
-            case 3:
-                // No action taken for now
-                Instantiate(DroppedGuns[3], transform.position, Quaternion.identity);
-                break;
-        }
-        
+        Instantiate(DroppedGuns[CurrentGunIndex], transform.position, Quaternion.identity);
+        UpdateGun();
     }
 /*
     void ScrollDown()

@@ -12,6 +12,15 @@ public class Rifle : MonoBehaviour
     [SerializeField] int Damage;
     [SerializeField] float LifeTime;
 
+    [Header("Serialized Fields")]
+    [SerializeField] GameObject BulletShootingPoint;
+
+    [Header("Anim")]
+    [SerializeField] Animator RifleAnimator;
+    int StateIdleAnim = 0;
+    int StateShootAnim = 1;
+    int StateReloadAnim = 2;
+
     [Header("Ammo")]
     [SerializeField] int MaxAmmo;
     [SerializeField] int CurrentAmmo;
@@ -34,7 +43,7 @@ public class Rifle : MonoBehaviour
 
     void Reload()
     {
-        if ((Input.GetKeyDown(KeyCode.R) && !isReloadingRifle && CurrentAmmo != MaxAmmo && Input.mouseScrollDelta.y == 0) || (CurrentAmmo <= 0 && !isReloadingRifle && Input.mouseScrollDelta.y == 0))
+        if ((Input.GetKeyDown(KeyCode.R) && !isReloadingRifle && CurrentAmmo != MaxAmmo && !isShootingRifle) || (CurrentAmmo <= 0 && !isReloadingRifle && !isShootingRifle))
         {
             StartCoroutine(IReload());
         }
@@ -47,7 +56,11 @@ public class Rifle : MonoBehaviour
     {
         isReloadingRifle = true;
 
+        RifleAnimator.SetInteger("State", StateReloadAnim);
+
         yield return new WaitForSeconds(ReloadTime);
+
+        RifleAnimator.SetInteger("State", StateIdleAnim);
 
         CurrentAmmo = MaxAmmo;
 
@@ -71,7 +84,7 @@ public class Rifle : MonoBehaviour
 
     void Shoot()
     {
-        if (Input.GetMouseButton(0) && !isShootingRifle && !isReloadingRifle && Input.mouseScrollDelta.y == 0 && CurrentAmmo >= 1)
+        if (Input.GetMouseButton(0) && !isShootingRifle && !isReloadingRifle && CurrentAmmo >= 1)
         {
             StartCoroutine(IShoot());
         }
@@ -80,68 +93,34 @@ public class Rifle : MonoBehaviour
 
     IEnumerator IShoot()
     {
+
         isShootingRifle = true;
 
-        if (Input.mouseScrollDelta.y != 0)
-        {
-            isShootingRifle = false;
-            yield break;
-        }
 
-        Vector3 MouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (Input.mouseScrollDelta.y != 0)
-        {
-            isShootingRifle = false;
-            yield break;
-        }
-
-        MouseWorldPos.z = 0;
-
-        Vector3 Dir = (MouseWorldPos - transform.position).normalized;
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPos.z = 0;
+        Vector3 dir = (mouseWorldPos - BulletShootingPoint.transform.position).normalized;
 
         CurrentAmmo--;
 
-        if (Input.mouseScrollDelta.y != 0)
+        RifleAnimator.SetInteger("State", StateShootAnim);
+
+        GameObject bullet = Instantiate(BulletPre, BulletShootingPoint.transform.position, Quaternion.identity);
+        bullet.GetComponent<Bullet>().Setup(dir, BulletSpeed, Damage, LifeTime);
+
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        bullet.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
+
+        yield return new WaitForSecondsRealtime(Delay);
+
+        if (RifleAnimator.GetInteger("State") != StateReloadAnim)
         {
-            isShootingRifle = false;
-            yield break;
-        }
-
-        GameObject Bullet = Instantiate(BulletPre, transform.position, Quaternion.identity);
-        Bullet.GetComponent<Bullet>().Setup(Dir, BulletSpeed, Damage, LifeTime);
-
-        if (Input.mouseScrollDelta.y != 0)
-        {
-            isShootingRifle = false;
-            yield break;
-        }
-
-        float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
-        Bullet.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
-
-        if (Input.mouseScrollDelta.y != 0)
-        {
-            isShootingRifle = false;
-            yield break;
-        }
-
-        float elapsedTime = 0;
-
-        while (elapsedTime < Delay)
-        {
-            elapsedTime += Time.deltaTime;
-
-            if (Input.mouseScrollDelta.y != 0)
-            {
-                isShootingRifle = false;
-                yield break;
-            }
-
-            yield return null;
+            RifleAnimator.SetInteger("State", StateIdleAnim);
         }
 
         isShootingRifle = false;
     }
+
 
 }
