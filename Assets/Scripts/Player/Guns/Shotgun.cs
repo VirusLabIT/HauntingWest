@@ -20,7 +20,7 @@ public class Shotgun : MonoBehaviour
 
     [Header("Ammo")]
     [SerializeField] int MaxAmmo;
-    [SerializeField] int CurrentAmmo;
+    public int CurrentAmmo;
 
     [Header("GUI")]
     [SerializeField] TextMeshProUGUI AmmoText;

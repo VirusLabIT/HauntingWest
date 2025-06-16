@@ -14,6 +14,7 @@ public class Rifle : MonoBehaviour
 
     [Header("Serialized Fields")]
     [SerializeField] GameObject BulletShootingPoint;
+    [SerializeField] RifleArt RifleArtScript;
 
     [Header("Anim")]
     [SerializeField] Animator RifleAnimator;
@@ -23,7 +24,7 @@ public class Rifle : MonoBehaviour
 
     [Header("Ammo")]
     [SerializeField] int MaxAmmo;
-    [SerializeField] int CurrentAmmo;
+    public int CurrentAmmo;
 
     [Header("GUI")]
     [SerializeField] TextMeshProUGUI AmmoText;
@@ -38,6 +39,15 @@ public class Rifle : MonoBehaviour
     private void Start()
     {
         CurrentAmmo = MaxAmmo;
+        SetUpGun();
+    }
+
+    public void SetUpGun()
+    {
+        RifleAnimator = RifleArtScript.GetComponentInChildren<Animator>();
+        BulletShootingPoint = RifleArtScript.ShootingPoint;
+        Damage = RifleArtScript.Damage;
+        ReloadTime = RifleArtScript.ReloadTime;
     }
 
 

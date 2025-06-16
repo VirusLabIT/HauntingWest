@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Mono.Cecil;
 using NUnit.Framework.Constraints;
 using TMPro;
 using UnityEditor.TextCore.Text;
@@ -14,31 +15,17 @@ public class Gun : MonoBehaviour
     public GameObject CurrentGun;
     public int CurrentGunIndex;
     public string GunType;
-    private void Update()
-    {
-        //ScrollManager();
-        //UpdateGun();
-    }
+    public string GunState;
+
 
     private void Start()
     {
+        CurrentGun = Guns[CurrentGunIndex];
+
+        GunState = CurrentGun.GetComponentInChildren<RifleArt>().rifleArtState.ToString();
+
         UpdateGun();
     }
-
-   /* void ScrollManager()
-    {
-        
-
-
-        if (Input.mouseScrollDelta.y > 0)
-        {
-            ScrollUp();
-        }else if (Input.mouseScrollDelta.y < 0)
-        {
-            ScrollDown();
-        }
-    }
-*/
     public void UpdateGun()
     {
         GunText.text = Guns[CurrentGunIndex].name;
@@ -49,12 +36,35 @@ public class Gun : MonoBehaviour
             {
                 gun.SetActive(true);
                 CurrentGun = gun;
-            }else
+                print(GunState);
+                switch (GunState.ToLower())
+                {
+                    case "standard":
+                        gun.GetComponentInChildren<RifleArt>().rifleArtState = RifleArt.RifleArtState.Standard;
+                        break;
+                    case "rusty":
+                        gun.GetComponentInChildren<RifleArt>().rifleArtState = RifleArt.RifleArtState.Rusty;
+                        break;
+                    case "guilded":
+                        gun.GetComponentInChildren<RifleArt>().rifleArtState = RifleArt.RifleArtState.Guilded;
+                        break;
+                    default:
+                        {
+                            print(gun.name + " does not have a valid state.");
+                            break;
+                        }
+                }
+
+
+                
+            }
+            else
             {
                 gun.SetActive(false);
             }
         }
 
+        
 
         if (CurrentGun.GetComponent<Shotgun>() != null)
         {
@@ -84,41 +94,60 @@ public class Gun : MonoBehaviour
             CurrentGun.GetComponent<Rifle>().isShootingRifle = false;
             CurrentGun.GetComponent<Rifle>().isReloadingRifle = false;
         }
+        CurrentGun.GetComponentInChildren<RifleArt>().UpdateGunState();
     }
+
 
     public void DropGun()
     {
-        Instantiate(DroppedGuns[CurrentGunIndex], transform.position, Quaternion.identity);
-        UpdateGun();
-    }
-/*
-    void ScrollDown()
-    {
-        int index = CurrentGunIndex + 1;
-        if (index > Guns.Length - 1)
+        GameObject gun = Instantiate(DroppedGuns[CurrentGunIndex], transform.position, Quaternion.identity);
+
+        int ammo = 0;
+
+        if (CurrentGun.GetComponent<Rifle>() != null)
         {
-            CurrentGunIndex = 0;
-        }else
+            ammo = CurrentGun.GetComponent<Rifle>().CurrentAmmo;
+
+        }
+        else if (CurrentGun.GetComponent<Shotgun>() != null)
         {
-            CurrentGunIndex++;
+            ammo = CurrentGun.GetComponent<Shotgun>().CurrentAmmo;
+
+        }
+        else if (CurrentGun.GetComponent<Revolver>() != null)
+        {
+            ammo = CurrentGun.GetComponent<Revolver>().CurrentAmmo;
+
+        }
+        else if (CurrentGun.GetComponent<Sniper>() != null)
+        {
+            ammo = CurrentGun.GetComponent<Sniper>().CurrentAmmo;
+            
+        }
+            
+        gun.GetComponent<DroppedGun>().Ammo = ammo;
+
+        print("ThisIsGunState from Gun.cs: " + GunState);
+
+
+        switch (GunState.ToLower())
+        {
+            case "standard":
+                gun.GetComponent<DroppedGun>().GunStates = State.standard;
+                break;
+            case "rusty":
+                gun.GetComponent<DroppedGun>().GunStates = State.rusty;
+                break;
+            case "guilded":
+                gun.GetComponent<DroppedGun>().GunStates = State.guilded;
+                break;
+            default:
+                {
+                    break;
+                }
         }
 
         
-        
-    }
-
-    void ScrollUp()
-    {
-        int index = CurrentGunIndex - 1;
-
-        if (index < 0)
-        {
-            CurrentGunIndex = Guns.Length - 1;
-        }else
-        {
-            CurrentGunIndex--;
-        }
         UpdateGun();
     }
-*/
 }

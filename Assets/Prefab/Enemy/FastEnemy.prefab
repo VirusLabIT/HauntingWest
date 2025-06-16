@@ -383,8 +383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7283fb7f524d94b87f1244dc613239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Life: 13
-  Damage: 7
+  Life: 85
+  Damage: 30
   IdleSpeed: 0.7
   AttackSpeed: 5.5
   MinTimeAttack: 2

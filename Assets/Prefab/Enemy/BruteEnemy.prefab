@@ -5126,8 +5126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fececf6aa56b78043a8b581a53480293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Life: 50
-  Damage: 25
+  Life: 125
+  Damage: 55
   PuchLifeTime: 0.1
   MinTimePunch: 6
   MaxTimePunch: 4
