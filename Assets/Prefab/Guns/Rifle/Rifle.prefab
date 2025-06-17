@@ -224,7 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Index: 0
   Ammo: 3
-  GunStates: 2
+  GunStates: 1
   GunArt:
   - {fileID: 7785163735755331341}
   - {fileID: 5630725534027077702}
@@ -351,12 +351,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7506424316134843610, guid: 14c1fe9e17c73be4db5ff169ecd6696e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f449cebcd2a89b14eae6b82e7db1aa2c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.9375, y: 0.4375}
+  m_Size: {x: 2, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
