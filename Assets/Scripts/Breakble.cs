@@ -8,7 +8,13 @@ public class Breakble : MonoBehaviour
 
     [SerializeField]GameObject[] ThingsToSpawn;
     [SerializeField] float offset;
+    [SerializeField] ParticleSystem BreakPar;
     bool trigger = false;
+    Animator animator;
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     public void LiveUpdate()
     {
@@ -24,6 +30,11 @@ public class Breakble : MonoBehaviour
     {
         if (!trigger)
         {
+            animator.SetTrigger("Break");
+            if (BreakPar != null && !BreakPar.isPlaying)
+            {
+                BreakPar.Play();
+            }
             StartCoroutine(ISpawnThings());
             trigger = true;
         }

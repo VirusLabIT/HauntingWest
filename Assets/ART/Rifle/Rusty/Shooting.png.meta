@@ -1,67 +1,67 @@
 fileFormatVersion: 2
-guid: e7b8066dfef011948853ac961a871c5b
+guid: 972849f9548e87c4ba8d65002a3c2a19
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3976193192299041475
-    second: pixilart-sprite(4)_0
+      213: 4689240166119133576
+    second: pixilart-sprite_0
   - first:
-      213: -245511183100337184
-    second: pixilart-sprite(4)_1
+      213: 4521018998857404175
+    second: pixilart-sprite_1
   - first:
-      213: 749515991377433613
-    second: pixilart-sprite(4)_2
+      213: -4621546931983276131
+    second: pixilart-sprite_2
   - first:
-      213: -8747856332159645663
-    second: pixilart-sprite(4)_3
+      213: 713319685308842295
+    second: pixilart-sprite_3
   - first:
-      213: -4721608139632988546
-    second: pixilart-sprite(4)_4
+      213: -8518763969059935731
+    second: pixilart-sprite_4
   - first:
-      213: -976173803225830504
-    second: pixilart-sprite(4)_5
+      213: 4832274764714241032
+    second: pixilart-sprite_5
   - first:
-      213: 1167405349307626523
-    second: pixilart-sprite(4)_6
+      213: 780070264368347037
+    second: pixilart-sprite_6
   - first:
-      213: 4684370976906403996
-    second: pixilart-sprite(4)_7
+      213: -4193572049093788039
+    second: pixilart-sprite_7
   - first:
-      213: -5225242879081348867
-    second: pixilart-sprite(4)_8
+      213: -3644103208204493558
+    second: pixilart-sprite_8
   - first:
-      213: -1128409250649604852
-    second: pixilart-sprite(4)_9
+      213: -1265382730224049132
+    second: pixilart-sprite_9
   - first:
-      213: -2610430966015910553
-    second: pixilart-sprite(4)_10
+      213: -2373955197081717080
+    second: pixilart-sprite_10
   - first:
-      213: -6472580610151226429
-    second: pixilart-sprite(4)_11
+      213: -573327041675331482
+    second: pixilart-sprite_11
   - first:
-      213: 2898630029425824663
-    second: pixilart-sprite(4)_12
+      213: -3157728139587121334
+    second: pixilart-sprite_12
   - first:
-      213: 2824772143280362804
-    second: pixilart-sprite(4)_13
+      213: -3675547840818973512
+    second: pixilart-sprite_13
   - first:
-      213: -5649144678949590144
-    second: pixilart-sprite(4)_14
+      213: 2420268537229075239
+    second: pixilart-sprite_14
   - first:
-      213: -7906932533027969522
-    second: pixilart-sprite(4)_15
+      213: -8642817127734411706
+    second: pixilart-sprite_15
   - first:
-      213: -129057412796948580
-    second: pixilart-sprite(4)_16
+      213: 3082524005124611595
+    second: pixilart-sprite_16
   - first:
-      213: 1371886398509334968
-    second: pixilart-sprite(4)_17
+      213: 7331592254506026159
+    second: pixilart-sprite_17
   - first:
-      213: 5696875251523080303
-    second: pixilart-sprite(4)_18
+      213: 6001305201216136165
+    second: pixilart-sprite_18
   - first:
-      213: 8873805087835362902
-    second: pixilart-sprite(4)_19
+      213: -351759893528886243
+    second: pixilart-sprite_19
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -183,7 +183,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Reload_0
+      name: Shooting_0
       rect:
         serializedVersion: 2
         x: 0
@@ -198,14 +198,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 562784fb17e85104ba568a3f60a9e97b
-      internalID: -1364466567
+      spriteID: 33ae57e2aec57dd4cbcb91b5afeb6d8b
+      internalID: -2119068965
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_1
+      name: Shooting_1
       rect:
         serializedVersion: 2
         x: 32
@@ -220,14 +220,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8192c99a9d9f6cb48bfad3dcd3414257
-      internalID: 1700097004
+      spriteID: 9d53094aa63fe794eaae2485b9f18bc9
+      internalID: -1051136590
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_2
+      name: Shooting_2
       rect:
         serializedVersion: 2
         x: 64
@@ -242,14 +242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c572aa7ccba6c6a409b1390c0c7d206a
-      internalID: 630636672
+      spriteID: d752ed91ae7f83145bd7fad2505c257f
+      internalID: -1479380673
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_3
+      name: Shooting_3
       rect:
         serializedVersion: 2
         x: 96
@@ -264,14 +264,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 418935b83dfe267419108857faa528c6
-      internalID: -754250467
+      spriteID: 3eb2d10fcc944a748b8ad8a8cfb1cf8c
+      internalID: -608926857
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_4
+      name: Shooting_4
       rect:
         serializedVersion: 2
         x: 128
@@ -286,14 +286,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b50ee99fcede8346ae582c0f729f3c3
-      internalID: -1563471868
+      spriteID: e3bb72ad3a76ce643b3d3012d9905a98
+      internalID: -1572544041
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_5
+      name: Shooting_5
       rect:
         serializedVersion: 2
         x: 160
@@ -308,14 +308,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 78359e80175c6ab4899646e935969426
-      internalID: -1923092959
+      spriteID: 3c2091c11059fd949930289a2eb6613e
+      internalID: -1919405015
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_6
+      name: Shooting_6
       rect:
         serializedVersion: 2
         x: 192
@@ -330,14 +330,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54fd6b071f5fef44fb70db6008ebd988
-      internalID: -381096125
+      spriteID: 1979146d61dfa914b905762e49c29e69
+      internalID: 139618000
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_7
+      name: Shooting_7
       rect:
         serializedVersion: 2
         x: 224
@@ -352,14 +352,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05aab2478c8208345bb54b484f4da41d
-      internalID: 2042738333
+      spriteID: 247a4faab76ec534daf773c336fda613
+      internalID: 375086307
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_8
+      name: Shooting_8
       rect:
         serializedVersion: 2
         x: 256
@@ -374,14 +374,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a994b7788809eea448c67ec778cfa0cb
-      internalID: -2010782567
+      spriteID: 40c7665b85610584697bc3f3d3937e48
+      internalID: 1521426399
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_9
+      name: Shooting_9
       rect:
         serializedVersion: 2
         x: 288
@@ -396,14 +396,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4d7a8d114a5381f469fe08f829426e40
-      internalID: -310924436
+      spriteID: 118efd5b4cea7bb48820903857064321
+      internalID: -2039583588
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_10
+      name: Shooting_10
       rect:
         serializedVersion: 2
         x: 320
@@ -418,14 +418,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0382fc60f3637845b1057d19bd57e0b
-      internalID: -906583351
+      spriteID: ad71778020affc048912d029deb7d23d
+      internalID: -961781179
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_11
+      name: Shooting_11
       rect:
         serializedVersion: 2
         x: 352
@@ -440,14 +440,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0bfc48a18f39fe44597425e2ccab1961
-      internalID: -1890521707
+      spriteID: ce488deaafe0f6547b0e90f923648c85
+      internalID: 2140166167
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_12
+      name: Shooting_12
       rect:
         serializedVersion: 2
         x: 384
@@ -462,14 +462,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4503d974857bb8144a96cf1a510eabe6
-      internalID: -206186691
+      spriteID: 6edc8d6f4871ed14e81c8698b6e44a50
+      internalID: -1314866473
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_13
+      name: Shooting_13
       rect:
         serializedVersion: 2
         x: 416
@@ -484,14 +484,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49849f091e36db94d8aad067a9a2fa55
-      internalID: 698767014
+      spriteID: c02666a20d325d6489cda19ca6c1fad4
+      internalID: 1097859358
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_14
+      name: Shooting_14
       rect:
         serializedVersion: 2
         x: 448
@@ -506,14 +506,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a977c30216f1f3439ba2296fd890cc6
-      internalID: -830821883
+      spriteID: b12b65e7024b3824480560234bd647e4
+      internalID: 1977929919
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_15
+      name: Shooting_15
       rect:
         serializedVersion: 2
         x: 480
@@ -528,14 +528,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8692b7e10397ac40ada0bcb38b879ff
-      internalID: 912345521
+      spriteID: ccb5253dc632f5c42b7217f5c00b54ee
+      internalID: 107322838
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_16
+      name: Shooting_16
       rect:
         serializedVersion: 2
         x: 512
@@ -550,14 +550,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec4e693fb0692864bb16d9164e259474
-      internalID: 670829598
+      spriteID: f9e65aa82aebd3342bd344917335653f
+      internalID: 415764916
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_17
+      name: Shooting_17
       rect:
         serializedVersion: 2
         x: 544
@@ -572,14 +572,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a184ebfd8ec6a94f980c7faafd34bff
-      internalID: -1334966724
+      spriteID: 3772631e5eff91a43b3c8c5d4fab070f
+      internalID: 1096437009
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_18
+      name: Shooting_18
       rect:
         serializedVersion: 2
         x: 576
@@ -594,14 +594,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0906399075e496418a5eb1999de14fb
-      internalID: -259254995
+      spriteID: f0b1f1e3a35c34941910abae7f549ed0
+      internalID: 104251987
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reload_19
+      name: Shooting_19
       rect:
         serializedVersion: 2
         x: 608
@@ -616,8 +616,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f08b70be5a1cf0a44955ab02d6fc70eb
-      internalID: 919319455
+      spriteID: 1f507c3356c1d4e4b87b0048c4136247
+      internalID: -1253671909
       vertices: []
       indices: 
       edges: []
@@ -626,7 +626,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 9b8ea80fedc0ab24f908b349a88b73e6
+    spriteID: d9325423eb2a233469bfab70e614ed17
     internalID: 0
     vertices: []
     indices: 
@@ -636,26 +636,26 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Reload_0: -1364466567
-      Reload_1: 1700097004
-      Reload_10: -906583351
-      Reload_11: -1890521707
-      Reload_12: -206186691
-      Reload_13: 698767014
-      Reload_14: -830821883
-      Reload_15: 912345521
-      Reload_16: 670829598
-      Reload_17: -1334966724
-      Reload_18: -259254995
-      Reload_19: 919319455
-      Reload_2: 630636672
-      Reload_3: -754250467
-      Reload_4: -1563471868
-      Reload_5: -1923092959
-      Reload_6: -381096125
-      Reload_7: 2042738333
-      Reload_8: -2010782567
-      Reload_9: -310924436
+      Shooting_0: -2119068965
+      Shooting_1: -1051136590
+      Shooting_10: -961781179
+      Shooting_11: 2140166167
+      Shooting_12: -1314866473
+      Shooting_13: 1097859358
+      Shooting_14: 1977929919
+      Shooting_15: 107322838
+      Shooting_16: 415764916
+      Shooting_17: 1096437009
+      Shooting_18: 104251987
+      Shooting_19: -1253671909
+      Shooting_2: -1479380673
+      Shooting_3: -608926857
+      Shooting_4: -1572544041
+      Shooting_5: -1919405015
+      Shooting_6: 139618000
+      Shooting_7: 375086307
+      Shooting_8: 1521426399
+      Shooting_9: -2039583588
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
