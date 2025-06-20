@@ -17,6 +17,7 @@ public class Shotgun : MonoBehaviour
 
     [Header("Serialized Fields")]
     [SerializeField] GameObject BulletShootingPoint;
+    [SerializeField] crosshair CrosshairScript;
 
     [Header("Ammo")]
     [SerializeField] int MaxAmmo;
@@ -53,9 +54,13 @@ public class Shotgun : MonoBehaviour
     {
         isReloadingShotGun = true;
 
+        CrosshairScript.isReloading = true;
+
         yield return new WaitForSeconds(ReloadTime);
 
         CurrentAmmo = MaxAmmo;
+
+        CrosshairScript.isReloading = false;
 
         isReloadingShotGun = false;
     }

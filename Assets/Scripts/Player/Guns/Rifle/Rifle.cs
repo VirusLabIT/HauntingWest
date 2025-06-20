@@ -15,6 +15,7 @@ public class Rifle : MonoBehaviour
     [Header("Serialized Fields")]
     [SerializeField] GameObject BulletShootingPoint;
     [SerializeField] RifleArt RifleArtScript;
+    [SerializeField] crosshair CrosshairScript;
 
     [Header("Anim")]
     [SerializeField] Animator RifleAnimator;
@@ -66,6 +67,8 @@ public class Rifle : MonoBehaviour
     {
         isReloadingRifle = true;
 
+        CrosshairScript.isReloading = true;
+
         RifleAnimator.SetInteger("State", StateReloadAnim);
 
         yield return new WaitForSeconds(ReloadTime);
@@ -73,6 +76,8 @@ public class Rifle : MonoBehaviour
         RifleAnimator.SetInteger("State", StateIdleAnim);
 
         CurrentAmmo = MaxAmmo;
+
+        CrosshairScript.isReloading = false;
 
         isReloadingRifle = false;
     }

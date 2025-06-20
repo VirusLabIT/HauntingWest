@@ -5008,6 +5008,10 @@ PrefabInstance:
       propertyPath: m_StoppingDistance
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4285907617189304345, guid: 55dc41df006800346996040a27510cff, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 4692188720792603479, guid: 55dc41df006800346996040a27510cff, type: 3}
       propertyPath: m_Radius
       value: 12
