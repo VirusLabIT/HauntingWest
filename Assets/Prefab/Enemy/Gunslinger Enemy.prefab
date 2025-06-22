@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Life: 100
-  Damage: 25
+  Damage: 5
   BulletSpeed: 18
   MinTimeSpawn: 1
   MaxTimeSpawn: 5

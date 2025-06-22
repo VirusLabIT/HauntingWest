@@ -12,19 +12,20 @@ public class Health : MonoBehaviour
 
     [Header("GUI")]
     [SerializeField] TextMeshProUGUI HealthTXT;
-    [SerializeField] Slider HealthSlider;
+    [SerializeField] Image HealthImage;
 
     private void Update()
     {
         ClampHealth(health);
         HealthTXT.text = health.ToString();
-        HealthSlider.value = health;
+        HealthImage.fillAmount = (float)health / MaxHealth;
     }
 
     public void ClampHealth(float health)
     {
         if (health <= 0)
         {
+            health = 0;
             Dead();
         }
 

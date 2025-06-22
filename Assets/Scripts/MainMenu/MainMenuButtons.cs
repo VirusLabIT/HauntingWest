@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuButtons : MonoBehaviour
 {
@@ -9,7 +10,10 @@ public class MainMenuButtons : MonoBehaviour
 
 
 
-
+    public void PlayButton()
+    {
+        SceneManager.LoadScene("StartRunRoom");
+    }
 
     public void OpenAboutPanel()
     {

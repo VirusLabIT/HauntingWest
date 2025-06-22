@@ -53,6 +53,7 @@ MonoBehaviour:
   LifeTime: 2.5
   BulletShootingPoint: {fileID: 8445253403261874862}
   RifleArtScript: {fileID: 8110150666363713744}
+  CrosshairScript: {fileID: 0}
   RifleAnimator: {fileID: 264786988828981889}
   MaxAmmo: 8
   CurrentAmmo: 0
@@ -112,6 +113,7 @@ MonoBehaviour:
   Damage: 7
   LifeTime: 2
   BulletShootingPoint: {fileID: 0}
+  CrosshairScript: {fileID: 0}
   MaxAmmo: 6
   CurrentAmmo: 0
   AmmoText: {fileID: 0}
@@ -309,6 +311,7 @@ MonoBehaviour:
   Damage: 20
   LifeTime: 3
   BulletShootingPoint: {fileID: 0}
+  CrosshairScript: {fileID: 0}
   MaxAmmo: 3
   CurrentAmmo: 0
   AmmoText: {fileID: 0}
@@ -432,6 +435,7 @@ MonoBehaviour:
   MaxNumOfShootsInOne: 7
   LifeTime: 0.3
   BulletShootingPoint: {fileID: 0}
+  CrosshairScript: {fileID: 0}
   MaxAmmo: 12
   CurrentAmmo: 0
   AmmoText: {fileID: 0}
@@ -682,7 +686,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8194743870494396964}
@@ -731,7 +735,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 25
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.735849, g: 0.49453783, b: 0.26032394, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1202,11 +1206,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8194743870494396964}
   - component: {fileID: 3049970598056236022}
-  - component: {fileID: 5017740454438359865}
   - component: {fileID: 460372632193935841}
   - component: {fileID: 149137530061230665}
   - component: {fileID: 8152885152209589910}
   - component: {fileID: 1163637641452013348}
+  - component: {fileID: 1093182636505746587}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1260,42 +1264,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &5017740454438359865
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7671419836494443673}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.1409843}
-  m_Radius: 0.42950785
 --- !u!114 &460372632193935841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1328,7 +1296,7 @@ MonoBehaviour:
   MaxHealth: 100
   health: 0
   HealthTXT: {fileID: 0}
-  HealthSlider: {fileID: 0}
+  HealthImage: {fileID: 0}
 --- !u!114 &8152885152209589910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1358,6 +1326,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Coins: 0
   CoinsGUI: {fileID: 0}
+--- !u!70 &1093182636505746587
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7671419836494443673}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.0070471764, y: 0.00000011920929}
+  m_Size: {x: 1.002677, y: 1.9986346}
+  m_Direction: 0
 --- !u!1 &7763865177989741167
 GameObject:
   m_ObjectHideFlags: 0

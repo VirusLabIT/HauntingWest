@@ -5019,7 +5019,6 @@ MonoBehaviour:
   ThingsToSpawn:
   - {fileID: 3016924648533934902, guid: 3467dbba62d8a6145987239a00f44df5, type: 3}
   - {fileID: 3016924648533934902, guid: 3467dbba62d8a6145987239a00f44df5, type: 3}
-  - {fileID: 3016924648533934902, guid: 3467dbba62d8a6145987239a00f44df5, type: 3}
   offset: 0.5
   BreakPar: {fileID: 8843768512982177769}
 --- !u!50 &6244122006896657890

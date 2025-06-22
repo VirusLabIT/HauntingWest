@@ -212,7 +212,6 @@ MonoBehaviour:
   lives: 1
   ThingsToSpawn:
   - {fileID: 3016924648533934902, guid: 3467dbba62d8a6145987239a00f44df5, type: 3}
-  - {fileID: 3016924648533934902, guid: 3467dbba62d8a6145987239a00f44df5, type: 3}
   - {fileID: 8779058764682370823, guid: 476f5d82e26d3a942bf2f3fce98ef297, type: 3}
   offset: 0.5
   BreakPar: {fileID: 4254291050668021062}

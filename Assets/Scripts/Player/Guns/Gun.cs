@@ -1,9 +1,5 @@
 using System.Collections.Generic;
-using JetBrains.Annotations;
-using Mono.Cecil;
-using NUnit.Framework.Constraints;
 using TMPro;
-using UnityEditor.TextCore.Text;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
