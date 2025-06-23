@@ -5022,7 +5022,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711546267096902770, guid: 55dc41df006800346996040a27510cff, type: 3}
       propertyPath: m_Radius
-      value: 9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6754294048627811318, guid: 55dc41df006800346996040a27510cff, type: 3}
       propertyPath: m_LocalScale.x
