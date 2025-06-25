@@ -29,7 +29,7 @@ public class Door : MonoBehaviour
     IEnumerator LoadLevel()
     {
         yield return new WaitForSecondsRealtime(DelayBeforeLoad);
-        if (LevelToLoad < 0 && LoadWithIndex)
+        if (LevelToLoad > 0 && LoadWithIndex)
         {
             SceneManager.LoadScene(LevelToLoad);
         }

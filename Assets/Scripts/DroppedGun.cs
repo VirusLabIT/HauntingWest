@@ -43,13 +43,15 @@ public class DroppedGun : MonoBehaviour
 
     private void Update()
     {
-        Press(Player);
+        if (Player != null) { Press(Player); }
     }
 
     void Press(GameObject Player)
     {
-        if (Input.GetKeyDown(KeyCode.E) && Player.CompareTag("Player") && isPlayeron)
+        bool Busy = false;
+        if (Input.GetKeyDown(KeyCode.E) && Player.CompareTag("Player") && isPlayeron && !Busy)
         {
+            Busy = true;
             Player.GetComponentInChildren<Gun>().DropGun();
             Player.GetComponentInChildren<Gun>().CurrentGunIndex = Index;
             Player.GetComponentInChildren<Gun>().GunState = GunStates.ToString();
