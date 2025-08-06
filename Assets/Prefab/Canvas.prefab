@@ -1344,6 +1344,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GunText: {fileID: 7978931889197549892}
   CurrentGun: {fileID: 9019963375468941391}
+  GunTexture: {fileID: 0}
+  GunsTextures:
+  - {fileID: 0}
   inv: {fileID: 3216023068185195618}
 --- !u!1 &6482710726813843548
 GameObject:
