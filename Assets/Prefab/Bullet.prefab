@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 500
   m_Sprite: {fileID: 21300000, guid: b4956ced5ad572b40bd532db6f3c7014, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -105,6 +105,7 @@ MonoBehaviour:
   hitDetection: 0
   bulletDetection: 0
   Damage: 0
+  PointShotEffect: {fileID: 5476534826831929398, guid: 9d76c15873e48584fb510318ad78ca47, type: 3}
 --- !u!61 &1651395662891080133
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -121,7 +122,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 72
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

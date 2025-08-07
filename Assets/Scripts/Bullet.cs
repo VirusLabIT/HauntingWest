@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     Vector3 Dir;
     float Speed;
     public int Damage;
-
+    [SerializeField] ParticleSystem PointShotEffect;
 
     public void Setup(Vector3 dir, float speed, int damage, float lifetime)
     {
@@ -43,23 +43,11 @@ public class Bullet : MonoBehaviour
             {
                 hitDetection = true;
                 bulletDetection = false;
-            }else if (collision.gameObject.layer == 8)
+            }
+            if (collision.gameObject.layer == 8)
             {
                 bulletDetection = true;
                 hitDetection = false;
-            }else if (collision.CompareTag("Wall"))
-            {
-                print(collision.name);
-                hitDetection = false;
-                bulletDetection = false;
-                Destroy(gameObject);
-            }else if (collision.CompareTag("Breakble"))
-            {
-                collision.gameObject.GetComponent<Breakble>().LiveUpdate();
-                print(collision.name + " Is Colid");
-                hitDetection = false;
-                bulletDetection = false;
-                Destroy(gameObject);
             }
             else
             {
@@ -67,7 +55,27 @@ public class Bullet : MonoBehaviour
                 bulletDetection = false;
                 Destroy(gameObject);
             }
-        }else
+            if (collision.CompareTag("Wall"))
+            {
+                print(collision.name);
+                hitDetection = false;
+                bulletDetection = false;
+                Destroy(gameObject);
+            }
+            if (collision.CompareTag("Breakble"))
+            {
+                collision.gameObject.GetComponent<Breakble>().LiveUpdate();
+                print(collision.name + " Is Colid");
+                hitDetection = false;
+                bulletDetection = false;
+                Destroy(gameObject);
+            }
+
+            ParticleSystem particle = Instantiate(PointShotEffect, transform.position, Quaternion.identity);
+            Destroy(particle, .1f);
+            print(collision.name);
+        }
+        else
         {
             print(collision.name);
         }
