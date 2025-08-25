@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a5a16830d68a0114bb1ea9785aa20c7c
+guid: cced8f95b35857d488593a03daeb8a2f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3170424875405864017
-    second: HeartEmpty_0
+      213: 3804720332328667349
+    second: AmmoEmptyUI_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HeartEmpty_0
+      name: AmmoEmptyUI_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1
+        y: 0
         width: 16
-        height: 14
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fa31f5a9f536004d0800000000000000
-      internalID: -3170424875405864017
+      spriteID: 5d80826ebf41dc430800000000000000
+      internalID: 3804720332328667349
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      HeartEmpty_0: -3170424875405864017
+      AmmoEmptyUI_0: 3804720332328667349
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

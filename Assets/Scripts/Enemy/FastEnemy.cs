@@ -306,7 +306,6 @@ public class FastEnemy : MonoBehaviour
                     isSpawning = false;
                     yield break;
                 }
-                print(elapsedTime);
                 yield return null;
             }
 

@@ -5,13 +5,14 @@ using UnityEngine.UI;
 public class Stamina : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] Slider ManaSlider;
+    [SerializeField] Image DashImage;
     public float currentmana = 1f;
     public bool isregen = false;
+    [SerializeField] AnimationCurve RegenCurve;
 
     private void Start()
     {
-        ManaSlider.value = currentmana;
+        UpdateSlider();
     }
 
     private void Update()
@@ -24,7 +25,7 @@ public class Stamina : MonoBehaviour
 
     public void UpdateSlider()
     {
-        ManaSlider.value = currentmana;
+        DashImage.materialForRendering.SetFloat("_Value", currentmana);
     }
 
     public void Regen()
@@ -37,12 +38,13 @@ public class Stamina : MonoBehaviour
         isregen = true;
 
         yield return new WaitForSecondsRealtime(.5f);
-
+        float mana = currentmana;
         while (currentmana < 1f)
         {
-            currentmana += 0.3f * Time.deltaTime; // Slower, framerate-independent
+            mana += .3f * Time.deltaTime;
+            currentmana = RegenCurve.Evaluate(mana);
             currentmana = Mathf.Clamp01(currentmana); // Ensure it doesn't go over 1
-            ManaSlider.value = currentmana;
+            UpdateSlider();
             yield return null;
         }
 

@@ -30,7 +30,7 @@ public class Rifle : MonoBehaviour
     [Header("GUI")]
     [SerializeField] TextMeshProUGUI AmmoText;
     [SerializeField] string AmmoDevider = "/";
-
+    [SerializeField] GameObject AmmoImage;
     public bool isShootingRifle;
     public bool isReloadingRifle;
 
@@ -69,6 +69,8 @@ public class Rifle : MonoBehaviour
 
         CrosshairScript.isReloading = true;
 
+        AmmoImage.SetActive(false);
+
         RifleAnimator.SetInteger("State", StateReloadAnim);
 
         yield return new WaitForSeconds(ReloadTime);
@@ -78,6 +80,8 @@ public class Rifle : MonoBehaviour
         CurrentAmmo = MaxAmmo;
 
         CrosshairScript.isReloading = false;
+
+        AmmoImage.SetActive(true);
 
         isReloadingRifle = false;
     }

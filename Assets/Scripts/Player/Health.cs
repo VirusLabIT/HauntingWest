@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public class Health : MonoBehaviour
 {
     [Header("Stats")]
@@ -18,8 +19,9 @@ public class Health : MonoBehaviour
     {
         ClampHealth(health);
         HealthTXT.text = health.ToString();
-        HealthImage.fillAmount = (float)health / MaxHealth;
+        HealthImage.materialForRendering.SetFloat("_Value", health);
     }
+
 
     public void ClampHealth(float health)
     {
@@ -43,7 +45,6 @@ public class Health : MonoBehaviour
     public void DealDamage(int damage)
     {
         StartCoroutine(IDealDamage(damage));
-        print(health);
         ClampHealth(health);
     }
 

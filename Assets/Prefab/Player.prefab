@@ -59,6 +59,7 @@ MonoBehaviour:
   CurrentAmmo: 0
   AmmoText: {fileID: 0}
   AmmoDevider: /
+  AmmoImage: {fileID: 0}
   isShootingRifle: 0
   isReloadingRifle: 0
 --- !u!1 &887537942119806372
@@ -118,6 +119,7 @@ MonoBehaviour:
   CurrentAmmo: 0
   AmmoText: {fileID: 0}
   AmmoDevider: /
+  AmmoImage: {fileID: 0}
   isShootingRevolver: 0
   isReloadingRevolver: 0
 --- !u!1 &900585122721492330
@@ -791,7 +793,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.32941177, g: 0.27450982, b: 0.21960786, a: 0}
+  m_BackGroundColor: {r: 0.48235297, g: 0.35686275, b: 0.22352943, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -863,7 +865,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -1206,11 +1208,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8194743870494396964}
   - component: {fileID: 3049970598056236022}
+  - component: {fileID: 1093182636505746587}
   - component: {fileID: 460372632193935841}
   - component: {fileID: 149137530061230665}
   - component: {fileID: 8152885152209589910}
   - component: {fileID: 1163637641452013348}
-  - component: {fileID: 1093182636505746587}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1264,6 +1266,43 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!70 &1093182636505746587
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7671419836494443673}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.0070471764, y: 0.00000011920929}
+  m_Size: {x: 1.002677, y: 1.9986346}
+  m_Direction: 0
 --- !u!114 &460372632193935841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1309,9 +1348,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98d9aaf86257df43aee6c3e18c85c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ManaSlider: {fileID: 0}
+  DashImage: {fileID: 0}
   currentmana: 1
   isregen: 0
+  RegenCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &1163637641452013348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1326,43 +1389,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Coins: 0
   CoinsGUI: {fileID: 0}
---- !u!70 &1093182636505746587
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7671419836494443673}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.0070471764, y: 0.00000011920929}
-  m_Size: {x: 1.002677, y: 1.9986346}
-  m_Direction: 0
 --- !u!1 &7763865177989741167
 GameObject:
   m_ObjectHideFlags: 0
