@@ -44,7 +44,7 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Value: 81
+    - _Value: 100
     m_Colors:
     - _InMinMax: {r: 0, g: 100, b: 0, a: 0}
     - _MinMax: {r: 0.405, g: 0.97, b: 0, a: 0}
