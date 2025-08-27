@@ -9,7 +9,7 @@ public class Door : MonoBehaviour
     [SerializeField] string LevelNameToLoad;
     [SerializeField] float DelayBeforeLoad = 0.5f;
     [SerializeField] bool LoadWithIndex = true;
-    [SerializeField] StartDoorEffect doorEffect;
+    
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -17,10 +17,6 @@ public class Door : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             print("Player entered the door trigger.");
-            if (doorEffect != null)
-            {
-                doorEffect.Collid = true;
-            }
             StartCoroutine(LoadLevel());
         }
     }

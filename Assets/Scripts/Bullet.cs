@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour
     float Speed;
     public int Damage;
     [SerializeField] ParticleSystem PointShotEffect;
+    bool hit = false;
 
     public void Setup(Vector3 dir, float speed, int damage, float lifetime)
     {
@@ -30,7 +31,10 @@ public class Bullet : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(Time);
 
-        Destroy(gameObject);
+        if (!hit)
+        {
+            Destroy(gameObject);
+        }
 
     }
 
@@ -53,14 +57,20 @@ public class Bullet : MonoBehaviour
             {
                 hitDetection = false;
                 bulletDetection = false;
-                Destroy(gameObject);
+                if (!hit)
+                {
+                    Hit();
+                }
             }
             if (collision.CompareTag("Wall"))
             {
                 print(collision.name);
                 hitDetection = false;
                 bulletDetection = false;
-                Destroy(gameObject);
+                if (!hit)
+                {
+                    Hit();
+                }
             }
             if (collision.CompareTag("Breakble"))
             {
@@ -68,11 +78,11 @@ public class Bullet : MonoBehaviour
                 print(collision.name + " Is Colid");
                 hitDetection = false;
                 bulletDetection = false;
-                Destroy(gameObject);
+                if (!hit)
+                {
+                    Hit();
+                }
             }
-
-            ParticleSystem particle = Instantiate(PointShotEffect, transform.position, Quaternion.identity);
-            Destroy(particle, .1f);
             print(collision.name);
         }
         else
@@ -81,11 +91,21 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    
+    void Hit()
+    {
+        hit = true;
+        ParticleSystem particle = Instantiate(PointShotEffect, transform.position, Quaternion.identity);
+        GetComponent<SpriteRenderer>().enabled = false;
+        Destroy(particle.gameObject, .5f);
+        Destroy(gameObject, .6f);
+    }
 
     private void Update()
     {
-        transform.position += Dir * Speed * Time.deltaTime;
+        if (!hit)
+        {
+            transform.position += Dir * Speed * Time.deltaTime;
+        }
     }
 
 
